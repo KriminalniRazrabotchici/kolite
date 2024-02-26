@@ -1,9 +1,22 @@
 use std::collections::HashMap;
 
+macro_rules! query {
+    ({ $($key:ident: $value:expr),+ $(,)? }) => {{
+        let mut query = Query::new();
+
+        $(
+            query.add(stringify!($key).to_string(), $value);
+        )+
+
+        query
+    }};
+}
+
 pub struct Query <T>{
     body: HashMap<String, T>
 }
 
+// TODO implement a better way to store values, not only of one type
 impl <T> Query<T> {
     pub fn new() -> Self {
         Query {
@@ -19,3 +32,4 @@ impl <T> Query<T> {
 pub trait AbleToQuery<T> {
     fn get_as_query(&self) -> Query<T>;
 }
+

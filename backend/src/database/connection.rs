@@ -3,7 +3,6 @@ use dotenv::dotenv;
 use std::env;
 use super::error::DatabaseError;
 
-
 pub async fn connect() -> Result<Client, mongodb::error::Error> {
     dotenv();
     let database_url = env::var("DATABASE_URL").expect("DATABASE_URL must be set");
