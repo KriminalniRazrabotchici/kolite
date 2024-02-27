@@ -2,6 +2,7 @@ use std::fmt::Display;
 
 use mongodb::error::Error as MongoError;
 
+#[derive(Debug)]
 pub enum DatabaseError {
     MongoError(MongoError),
     CustomError(String),
