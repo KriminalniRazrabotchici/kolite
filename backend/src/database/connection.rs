@@ -4,7 +4,7 @@ use std::env;
 use super::error::DatabaseError;
 
 pub async fn connect() -> Result<Client, mongodb::error::Error> {
-    dotenv();
+    let _ = dotenv();
     let database_url = env::var("DATABASE_URL").expect("DATABASE_URL must be set");
 
     let client = Client::with_uri_str(database_url).await?;
