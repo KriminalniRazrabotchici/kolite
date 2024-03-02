@@ -17,7 +17,7 @@ where T:
     Ok(())
 }
 
-pub async fn save_multuple_models<T>(database: &Database, collection: &str, models: Vec<T>) -> Result<(), DatabaseError>
+pub async fn save_multiple_models<T>(database: &Database, collection: &str, models: Vec<T>) -> Result<(), DatabaseError>
 where T:
     Serialize + Deserialize<'static>
 {
