@@ -1,4 +1,6 @@
-use mongodb::{options::{InsertManyOptions, InsertOneOptions}, Database};
+use std::pin::Pin;
+
+use mongodb::{bson::doc, options::{FindOneOptions, InsertManyOptions, InsertOneOptions}, Database};
 use super::error::DatabaseError;
 use serde::{Deserialize, Serialize};
 
@@ -30,3 +32,27 @@ where T:
 
     Ok(())
 }
+
+
+pub async fn get_model_by_id<T>(database: &Database, collection: &str, id: &str) -> Result<Pin<Box<T>>, DatabaseError>
+where T:
+    Deserialize<'static>
+{
+    let collection = database.collection(collection);
+
+    let filter = doc! {"id": id};
+    let options = FindOneOptions::default();
+
+    let result: Option<Box<T>> = collection.find_one(filter, options).await.map_err(|err| {
+        DatabaseError::MongoError(err)
+    })?;
+
+    match result {
+        Some(model) => Ok(Pin::from(model)),
+        None => Err(DatabaseError::custom("Model not found"))
+
+    }
+
+}
+
+
