@@ -13,6 +13,7 @@ struct TestModel {
 #[cfg(test)]
 mod tests {
     use mockall::predicate::*;
+    use mongodb::Database;
     use crate::connection;
     use crate::crud;
     use crate::error::DatabaseError;
@@ -211,14 +212,16 @@ mod tests {
 
         crud::save_model(&database, "test", model).await.unwrap();
 
-        let result = crud::get_model_by_id(&database, "test", "123").await;
+        let result = crud::get_model_by_id
+            ::<TestModel>(&database, "test", "123").await;        
 
         match result {
-            Ok(model) => {
+            Ok(Some(model)) => {
                 assert_eq!(model.id, "123");
                 assert_eq!(model.age, 20);
                 assert_eq!(model.name, "John");
             },
+            Ok(None) => assert!(false, "Expected a model"),
             Err(err) => {
                 println!("Error: {}", err);
                 assert!(false, "Expected Ok")
@@ -229,19 +232,49 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn test_getting_model_error() {
+    async fn test_getting_model_returns_none() {
         prepare_test();
-        let database = connection::get_database("test").await.unwrap();
+        let database = connection::get_database("none").await.unwrap();
 
-        let result = crud::get_model_by_id(&database, "test", "123").await;
+        let result = crud::get_model_by_id
+            ::<TestModel>(&database, "test", "123").await;
+
 
         match result {
-            Ok(_) => assert!(false, "Expected an error"),
-            Err(DatabaseError::CustomError(_)) => assert!(true),
-            Err(_) => assert!(false, "Expected a MongoError"),
+            Ok(None) => assert!(true),
+            Ok(Some(_)) => assert!(false, "Expected None"),
+            Err(err) => {
+                println!("Error: {}", err);
+                assert!(false, "Expected Ok")
+            }
         };
 
         database.drop(None).await.unwrap();
     }
 
+    // #[tokio::test]
+    // async fn test_getting_model_error() {
+    //     prepare_test();
+    //     let database = connection::get_database("test").await.unwrap();
+    //
+    //     let model = TestModel {
+    //         id: "123".to_string(),
+    //         age: 20,
+    //         name: "John".to_string(),
+    //     };
+    //
+    //     crud::save_model(&database, "test", model).await.unwrap();
+    //     
+    //
+    //     let result = crud::get_model_by_id::<TestModel>
+    //         (&database, "wrong", "123").await;
+    //
+    //     match result {
+    //         Ok(_) => assert!(false, "Expected an error"),
+    //         Err(DatabaseError::MongoError(_)) => assert!(true),
+    //         Err(_) => assert!(false, "Expected a MongoError"),
+    //     };
+    //
+    //     database.drop(None).await.unwrap();
+    // }
 }
