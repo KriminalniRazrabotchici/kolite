@@ -1,4 +1,8 @@
-use mongodb::{bson::{self, doc}, options::{FindOneOptions, InsertManyOptions, InsertOneOptions}, Database};
+use mongodb::{
+    bson::{self, doc, Document},
+    options::{FindOneOptions, FindOptions, InsertManyOptions, InsertOneOptions}, 
+    Database
+};
 use super::error::DatabaseError;
 use serde::{de::DeserializeOwned, Deserialize, Serialize};
 
@@ -54,6 +58,28 @@ where T:
         Err(err) => Err(err)
     }
     
+}
+
+
+type ManyModelsResult<T> = Option<Vec<T>>;
+
+pub async fn get_many_models<T>(database: &Database, collection: &str, query: &Document, limit: i64) -> Result<ManyModelsResult<T>, DatabaseError>
+where T:
+    DeserializeOwned
+{ 
+    let collection = database.collection(collection);
+
+    let options = FindOptions::builder()
+                    .limit(limit)
+                    .build();
+
+    let output: Vec<T> = Vec::new();
+        
+    let mut cursor = collection.find(*query, options).await
+        .map_err(|err| DatabaseError::MongoError(err))?;
+
+    while let Some(result) = cursor.try_next().await
+
 }
 
 

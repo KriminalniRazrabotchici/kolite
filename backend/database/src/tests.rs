@@ -13,7 +13,6 @@ struct TestModel {
 #[cfg(test)]
 mod tests {
     use mockall::predicate::*;
-    use mongodb::Database;
     use crate::connection;
     use crate::crud;
     use crate::error::DatabaseError;
@@ -39,6 +38,26 @@ mod tests {
             output 
         
         }
+    }
+
+    fn assert_model_equality(models_1: Vec<TestModel>, models_2: Vec<TestModel>) {
+        let even_length = models_1.len() == models_2.len();
+
+        assert!(even_length);
+
+        for model_id in 0..models_1.len(){
+            let model_equality = 
+                models_1[model_id].id == models_2[model_id].id &&
+                models_1[model_id].age == models_2[model_id].age &&
+                models_1[model_id].name == models_2[model_id].name;
+
+            if !model_equality {
+                assert!(false, 
+                        "Not all models are equal!, failed at id: {}", model_id)
+            }
+        }
+
+        assert!(true);
     }
 
 
@@ -277,4 +296,28 @@ mod tests {
     //
     //     database.drop(None).await.unwrap();
     // }
+    
+    #[tokio::test]
+    async fn get_many_models() {
+        prepare_test();
+        let database = connection::get_database("test").await.unwrap();
+
+
+        let amount: u8 = 30;
+        let models = TestModel::generate_many(amount);
+
+        crud::save_multiple_models(&database, "test_many", models).await.unwrap();
+        let query = doc! {"id": doc! {"$gt": 10}};
+        let limit = 5;
+
+        let result = crud::get_many_models::<TestModel>(&database, query, limit).await;
+
+        match result {
+            Ok(Some(result_models)) => assert_model_equality(models, result_models),
+            Ok(None) => assert!(false, "Expected a Some variant"),
+            Err(_) => assert!(false, "Expected OK result")
+        }
+    }
+
+
 }
