@@ -22,22 +22,28 @@ pub async fn get_database(database_name: &str) -> Result<Database, DatabaseError
     Ok(client.database(database_name))
 }
 
+pub async fn get_create_collection<T>(database: &Database, collection_name: &str, validation_rules: Option<Document>) -> Collection<T> 
+where T:
+    Serialize + DeserializeOwned
+{
+    match get_collection(database, collection_name).await {
+        Some(collection) => collection,
+        None => create_collection(database, collection_name, validation_rules).await
+    }
+}
+
 pub(crate) async fn get_collection<T>(database: &Database, collection_name: &str,) -> Option<Collection<T>> 
 where T:
     Serialize + DeserializeOwned
 {
-
-    let collection_results = database.list_collection_names(None).await;
-
-    let collections = match collection_results {
-        Err(_) => return None,
-        Ok(collections) => collections
-    };
+    
+    let collections = get_all_collections_names(database).await?;
 
     for current_name in collections.iter() {
-        if current_name == collection_name{
-            let collection = database.collection(collection_name);
-            return Some(collection);
+        let collection = return_collection_if_name_matches_current_collection(database, collection_name, current_name).await;
+
+        if collection.is_some() {
+            return collection;
         }
     }
 
@@ -48,11 +54,7 @@ pub(crate) async fn create_collection<T>(database: &Database, collection_name: &
 where T:
     Serialize + DeserializeOwned
 {
-    let options = CreateCollectionOptions::builder()
-                    .validator(validation_rules)
-                    .validation_action(ValidationAction::Error)
-                    .validation_level(ValidationLevel::Moderate)
-                    .build();
+    let options = create_validation_options(validation_rules, ValidationAction::Error, ValidationLevel::Moderate);
 
     let creation_result = database.create_collection(collection_name, options).await;
 
@@ -62,12 +64,43 @@ where T:
     } 
 }
 
-pub async fn get_create_collection<T>(database: &Database, collection_name: &str, validation_rules: Option<Document>) -> Collection<T> 
-where T:
-    Serialize + DeserializeOwned
+async fn get_all_collections_names(database: &Database) -> Option<Vec<String>> {
+
+    let collection_results = database.list_collection_names(None).await;
+
+    match collection_results {
+        Err(_) => None,
+        Ok(collections) => Some(collections)
+    }
+}
+
+async fn return_collection_if_name_matches_current_collection<T>
+    (database: &Database, collection_name: &str, current_name: &str) 
+-> Option<Collection<T>> 
 {
-    match get_collection(database, collection_name).await {
-        Some(collection) => collection,
-        None => create_collection(database, collection_name, validation_rules).await
+    if current_name == collection_name{
+        let collection = database.collection(collection_name);
+        Some(collection)
+    }else {
+        None
+    }
+}
+
+fn create_validation_options
+(
+    validation_rules: Option<Document>, 
+    validation_action: ValidationAction, 
+    validation_level: ValidationLevel
+) 
+-> CreateCollectionOptions 
+{
+    if validation_rules.is_none() {
+        CreateCollectionOptions::default()
+    }else{
+        CreateCollectionOptions::builder()
+                        .validator(validation_rules)
+                        .validation_action(validation_action)
+                        .validation_level(validation_level)
+                        .build()
     }
 }
