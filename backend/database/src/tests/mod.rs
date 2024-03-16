@@ -1,2 +1,2 @@
-mod test_crud;
-mod test_connection;
+mod test_base_database_handler_functionalities;
+mod test_database_auth;
