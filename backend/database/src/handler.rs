@@ -1,6 +1,11 @@
+use mongodb::bson::Document;
+use mongodb::options::{CreateCollectionOptions, ValidationAction, ValidationLevel};
 use mongodb::{Client, Database};
+use serde::de::DeserializeOwned;
+use serde::Serialize;
 
 use crate::auth::DatabaseConnectionData;
+use crate::collections::CollectionHandler;
 use crate::errors::DatabaseError; 
 
 
@@ -47,5 +52,34 @@ impl DatabaseHandler  {
 
     pub fn get_client(&self) -> Client {
         self.client.clone()
+    }
+
+    pub async fn create_collection(&self, collection_name: &str, validation_rules: Option<Document>) -> Result<(), DatabaseError> {
+        let options = CreateCollectionOptions::builder()
+            .validator(validation_rules)
+            .validation_level(ValidationLevel::Moderate)
+            .validation_action(ValidationAction::Error)
+            .build();
+
+        match self.database.create_collection(collection_name, options).await {
+            Ok(_) => Ok(()),
+            Err(e) => Err(DatabaseError::CreateCollectionError(e.to_string())),
+        }
+        
+    }
+
+    pub async fn get_collection<T>(&self, collection_name: &str) -> Result<CollectionHandler<T>, DatabaseError> 
+    where T: Serialize + DeserializeOwned
+    {
+        let collections = self.database.list_collection_names(None).await
+            .map_err(|e| DatabaseError::MongoError(e))?;
+
+        if !collections.contains(&collection_name.to_string()) {
+            return Err(DatabaseError::CreateCollectionError(format!("Collection {} does not exist", collection_name)));
+        }
+
+        let collection = self.database.collection::<T>(collection_name);
+
+        Ok(CollectionHandler::from(collection))
     }
 }

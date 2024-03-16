@@ -5,6 +5,7 @@ pub enum DatabaseError {
     MongoError(mongodb::error::Error),
     ConnectionError(String),
     AuthError(String),
+    CreateCollectionError(String),
 }
 
 impl fmt::Display for DatabaseError {
@@ -13,6 +14,7 @@ impl fmt::Display for DatabaseError {
             DatabaseError::MongoError(e) => write!(f, "MongoError: {}", e),
             DatabaseError::ConnectionError(e) => write!(f, "ConnectionError: {}", e),
             DatabaseError::AuthError(e) => write!(f, "AuthError: {}", e),
+            DatabaseError::CreateCollectionError(e) => write!(f, "CreateCollectionError: {}", e),
         }
     }
 }

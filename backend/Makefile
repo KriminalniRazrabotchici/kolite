@@ -5,13 +5,12 @@ run:
 	cargo run
 
 test:
-	cargo test -p database -- --test-threads=2
+	cargo test -p database 
 	cargo test
 	./test_cleanup.sh
 
 test-database:
-	cargo test -p database test_connection -- --test-threads=2
-	cargo test -p database test_crud
+	cargo test -p database
 	./test_cleanup.sh
 
 test-coverage:
