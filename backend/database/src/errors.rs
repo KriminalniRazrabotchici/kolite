@@ -6,6 +6,8 @@ pub enum DatabaseError {
     ConnectionError(String),
     AuthError(String),
     CreateCollectionError(String),
+    CouldNotSaveError(String),
+    CursorError(String),
 }
 
 impl fmt::Display for DatabaseError {
@@ -15,6 +17,8 @@ impl fmt::Display for DatabaseError {
             DatabaseError::ConnectionError(e) => write!(f, "ConnectionError: {}", e),
             DatabaseError::AuthError(e) => write!(f, "AuthError: {}", e),
             DatabaseError::CreateCollectionError(e) => write!(f, "CreateCollectionError: {}", e),
+            DatabaseError::CouldNotSaveError(e) => write!(f, "CouldNotSaveError: {}", e),
+            DatabaseError::CursorError(e) => write!(f, "CursorError: {}", e),
         }
     }
 }
