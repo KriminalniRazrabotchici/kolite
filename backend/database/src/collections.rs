@@ -1,4 +1,4 @@
-use mongodb::{bson::{doc, Document}, options::{FindOneOptions, FindOptions, InsertManyOptions, InsertOneOptions}, Collection};
+use mongodb::{bson::{doc, Document}, options::{DeleteOptions, FindOneOptions, FindOptions, InsertManyOptions, InsertOneOptions, UpdateOptions}, Collection};
 use serde::{de::DeserializeOwned,  Serialize};
 
 use crate::errors::DatabaseError;
@@ -65,7 +65,61 @@ where T: Serialize + DeserializeOwned
 
         Ok(output)
     }
- 
+
+    pub async fn update_one(&self, query: Document, update: Document) -> Result<(), DatabaseError>
+    {
+        let options = UpdateOptions::default();
+        let operation = self.collection.update_one(query, update, options).await;
+
+        match operation {
+            Ok(_) => Ok(()),
+            Err(e) => Err(DatabaseError::CouldNotSaveError(format!("The model, couldn't be updated: {}", e.to_string()))),
+        }
+    }
+
+    pub async fn update_many(&self, query: Document, update: Document) -> Result<(), DatabaseError>
+    {
+        let options = UpdateOptions::default();
+        let operation = self.collection.update_many(query, update, options).await;
+
+        match operation {
+            Ok(_) => Ok(()),
+            Err(e) => Err(DatabaseError::CouldNotSaveError(format!("The models, couldn't be updated: {}", e.to_string()))),
+        }
+    }
+
+    pub async fn delete_one(&self, query: Document) -> Result<(), DatabaseError>
+    {
+        let options = DeleteOptions::default();
+        let operation = self.collection.delete_one(query, options).await;
+
+        match operation {
+            Ok(_) => Ok(()),
+            Err(e) => Err(DatabaseError::CouldNotSaveError(format!("The model, couldn't be deleted: {}", e.to_string()))),
+        }
+    }
+
+    pub async fn delete_one_with_id(&self, id: &str) -> Result<(), DatabaseError>
+    {
+        let query = doc! {
+            "id": id
+        };
+        
+        self.delete_one(query).await 
+
+    }
+
+    pub async fn delete_many(&self, query: Document) -> Result<(), DatabaseError>
+    {
+
+        let options = DeleteOptions::default();
+        let operation = self.collection.delete_many(query, options).await;
+
+        match operation {
+            Ok(_) => Ok(()),
+            Err(e) => Err(DatabaseError::CouldNotSaveError(format!("The models, couldn't be deleted: {}", e.to_string()))),
+        }
+    }
 
 }
 

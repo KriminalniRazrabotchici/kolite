@@ -168,4 +168,151 @@ mod tests{
             assert!(false);
         }
     }
+
+    #[tokio::test]
+    async fn test_deleting_one_model() {
+        let handler = get_database_handler().await;
+        handler.create_collection("test_deleting_one_model", None).await.unwrap();
+
+        let collection_handler = handler.get_collection::<SampleModel>("test_deleting_one_model").await.unwrap();
+
+        let model = SampleModel::new("1".to_string(), "John".to_string(), 20);
+
+        collection_handler.save_one(&model).await.unwrap();
+
+        let query = doc! {
+            "id": "1",
+        };
+
+        let delete_result = collection_handler.delete_one(query.clone()).await;
+
+        match delete_result {
+            Ok(_) => {
+                let returned_model = collection_handler.get_one(Some(query)).await.unwrap();
+                assert!(returned_model.is_none());
+            
+            },
+            Err(_) => assert!(false),
+        }
+    }
+
+    #[tokio::test]
+    async fn test_deleting_one_model_with_id() {
+        let handler = get_database_handler().await;
+        handler.create_collection("test_deleting_one_model_with_id", None).await.unwrap();
+
+        let collection_handler = handler.get_collection::<SampleModel>("test_deleting_one_model_with_id").await.unwrap();
+
+        let model = SampleModel::new("1".to_string(), "John".to_string(), 20);
+
+        collection_handler.save_one(&model).await.unwrap();
+
+        let delete_result = collection_handler.delete_one_with_id("1").await;
+
+        match delete_result {
+            Ok(_) => assert!(true),
+            Err(_) => assert!(false),
+        }
+    }
+
+    #[tokio::test]
+    async fn test_deleting_many_models() {
+        let handler = get_database_handler().await;
+        handler.create_collection("test_deleting_many_models", None).await.unwrap();
+
+        let collection_handler = handler.get_collection::<SampleModel>("test_deleting_many_models").await.unwrap();
+
+        let models = SampleModel::generate_many(10);
+        let models = Box::new(models);
+
+        let _ = collection_handler.save_many(models.clone()).await;
+
+        let query = doc! {
+            "age": {
+                "$gt": 4,
+            }
+        };
+
+        let delete_result = collection_handler.delete_many(query).await;
+
+        match delete_result {
+            Ok(_) => {
+                let models = collection_handler.get_many(None, None).await.unwrap();
+                assert_eq!(models.len(), 5);
+            
+            },
+            Err(_) => assert!(false),
+        }
+    }
+
+    #[tokio::test]
+    async fn test_updating_one_model() {
+        let handler = get_database_handler().await;
+        handler.create_collection("test_updating_one_model", None).await.unwrap();
+
+        let collection_handler = handler.get_collection::<SampleModel>("test_updating_one_model").await.unwrap();
+
+        let model = SampleModel::new("1".to_string(), "John".to_string(), 20);
+
+        collection_handler.save_one(&model).await.unwrap();
+
+        let query = doc! {
+            "id": "1",
+        };
+
+        let update = doc! {
+            "$set": {
+                "name": "John Doe",
+            }
+        };
+
+        let update_result = collection_handler.update_one(query.clone(), update).await;
+
+        match update_result {
+            Ok(_) => {
+                let updated_model = collection_handler.get_one(Some(query)).await.unwrap().unwrap();
+                assert_eq!(updated_model.name, "John Doe");
+            },
+            Err(_) => assert!(false),
+        }
+    }
+    
+    #[tokio::test]
+    async fn test_updating_many_models() {
+        let handler = get_database_handler().await;
+        handler.create_collection("test_updating_many_models", None).await.unwrap();
+
+        let collection_handler = handler.get_collection::<SampleModel>("test_updating_many_models").await.unwrap();
+
+        let models = SampleModel::generate_many(10);
+        let models = Box::new(models);
+
+        let _ = collection_handler.save_many(models.clone()).await;
+
+        let query = doc! {
+            "age": {
+                "$gt": 5,
+            }
+        };
+
+        let update = doc! {
+            "$set": {
+                "name": "John Doe",
+            }
+        };
+
+        let update_result = collection_handler.update_many(query, update).await;
+
+        match update_result {
+            Ok(_) => {
+                let models = collection_handler.get_many(None, None).await.unwrap();
+                for model in models {
+                    if model.age > 5 {
+                        assert_eq!(model.name, "John Doe");
+                    }
+                }
+            }
+            Err(_) => assert!(false),
+        }
+    }
 }
