@@ -3,7 +3,8 @@ import { createGlobalStyle } from 'styled-components';
 const GlobalStyles = createGlobalStyle`
 
 :root {
-/* define colors */
+--black: #000;
+--white: #fff;
 }
 
 *,
@@ -19,7 +20,7 @@ html {
 }
 
 body {
-  font-family: /* select font-family*/ sans-serif;
+  font-family: "Roboto", sans-serif;
 
   line-height: 1.5;
 
@@ -50,9 +51,3 @@ h6 {
 `;
 
 export default GlobalStyles;
-
-// - FONT SIZE SYSTEM (px)
-// 10 / 12 / 14 / 16 / 18 / 20 / 24 / 30 / 36 / 44 / 52 / 62 / 74 / 86 / 98
-
-// - SPACING SYSTEM (px)
-// 2 / 4 / 8 / 12 / 16 / 24 / 32 / 48 / 64 / 80 / 96 / 128
