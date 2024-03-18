@@ -1,44 +1,29 @@
-use serde::{Deserialize, Serialize};
+use uuid::Uuid;
+use argon2::{Argon2, Algorithm};
+use rand::{self, RngCore};
 
-#[derive(Debug, Serialize, Deserialize)]
+
+#[derive(Debug)]
 pub struct User {
-    username: String,
-    email: String,
-    password: String,
-    is_active: bool,
+    uuid: [u8; 16],
+    name: String,
+    password: [u8; 64],
+    salt: [u8, 64],
+    age: i32,
     is_admin: bool,
-    is_deleted: bool,
+    is_active: bool,
 }
 
 impl User {
-    pub fn new(username: String, email: String, password: String) -> User {
+    pub fn new(username: &str, password: &str, email: &str) -> User {
+        let uuid = generate_uuid();
         User {
-            username,
-            email,
-            password,
-            is_active: true,
-            is_admin: false,
-            is_deleted: false,
         }
     }
 
-    pub fn deactivate(&mut self) {
-        self.is_active = false;
-    }
-
-    pub fn activate(&mut self) {
-        self.is_active = true;
-    }
-
-    pub fn promote_to_admin(&mut self) {
-        self.is_admin = true;
-    }
-
-    pub fn demote_from_admin(&mut self) {
-        self.is_admin = false;
-    }
-
-    pub fn delete(&mut self) {
-        self.is_deleted = true;
+    fn generate_uuid() -> String { 
+        Uuid::now_v7().to_string() 
     }
 }
+
+// TODO implement custom Serializer and Deserializer
