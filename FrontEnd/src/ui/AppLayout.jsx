@@ -1,15 +1,16 @@
 import { Outlet } from 'react-router';
 import NavBar from './NavBar';
+import { Main } from './Main';
 
 function AppLayout() {
   return (
-    <div>
+    <>
       <NavBar />
 
-      <main>
+      <Main>
         <Outlet />
-      </main>
-    </div>
+      </Main>
+    </>
   );
 }
 

@@ -1,40 +1,14 @@
 import styled from 'styled-components';
 import { StyledNavLink } from './NavLink';
 
-const Nav = styled.nav`
-  background-color: var(--black);
-  color: var(--white);
-
-  padding: 0 2.4rem;
-
-  font-size: 2rem;
-
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  height: 6rem;
-`;
+import { BiSortAlt2, BiHeart } from 'react-icons/bi';
+import { Nav } from './Nav';
+import { NavItems } from './NavUl';
+import { ContainerRight } from './NavRightSide';
+import { Button, ButtonLink } from './ButtonNav';
+import OpenLogin from '../features/login/OpenLogin';
 
 const Logo = styled.div``;
-
-const NavItems = styled.ul`
-  display: flex;
-  justify-content: space-between;
-  gap: 1.6rem;
-`;
-
-const Container = styled.div`
-  display: flex;
-  gap: 1.6rem;
-`;
-
-const Button = styled.button`
-  color: var(--white);
-  font-size: 2rem;
-  background: transparent;
-  border: none;
-`;
 
 function NavBar() {
   return (
@@ -50,19 +24,23 @@ function NavBar() {
           <StyledNavLink to='/contacts'>Contacts</StyledNavLink>
         </li>
         <li>
-          <StyledNavLink to='/login'>Login</StyledNavLink>
+          <OpenLogin />
         </li>
         <li>
-          <StyledNavLink to='/register'>Register</StyledNavLink>
+          <ButtonLink>Register</ButtonLink>
         </li>
         <li>
-          <StyledNavLink to='/publish'>Add yours</StyledNavLink>
+          <ButtonLink>Add yours</ButtonLink>
         </li>
       </NavItems>
-      <Container>
-        <Button>♥</Button>
-        <Button>sort</Button>
-      </Container>
+      <ContainerRight>
+        <Button>
+          <BiHeart />
+        </Button>
+        <Button>
+          <BiSortAlt2 />
+        </Button>
+      </ContainerRight>
     </Nav>
   );
 }

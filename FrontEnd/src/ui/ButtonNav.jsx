@@ -1,7 +1,27 @@
 import styled from 'styled-components';
-import { NavLink } from 'react-router-dom';
 
-export const StyledNavLink = styled(NavLink)`
+export const Button = styled.button`
+  color: var(--white);
+  font-size: 2rem;
+  background: transparent;
+  border: none;
+
+  & svg {
+    width: 2.4rem;
+    height: 2.4rem;
+  }
+
+  &:hover,
+  &:active {
+    & svg {
+      color: var(--white);
+    }
+  }
+`;
+
+export const ButtonLink = styled.button`
+  border: none;
+  background: transparent;
   text-decoration: none;
   display: flex;
   align-items: center;
@@ -14,12 +34,9 @@ export const StyledNavLink = styled(NavLink)`
 
   position: relative;
 
-  &:link,
-  &:visited {
-    color: var(--white);
+  color: var(--white);
 
-    transition: all 0.5s;
-  }
+  transition: all 0.5s;
 
   &::before {
     content: '';
@@ -33,9 +50,7 @@ export const StyledNavLink = styled(NavLink)`
   }
 
   &:hover,
-  &:active,
-  &.active:link,
-  &.active:visited {
+  &:active {
     /* text-decoration: line-through; */
     &::before {
       width: 100%;
