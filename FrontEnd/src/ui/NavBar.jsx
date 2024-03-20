@@ -7,6 +7,8 @@ import { NavItems } from './NavUl';
 import { ContainerRight } from './NavRightSide';
 import { Button, ButtonLink } from './ButtonNav';
 import OpenLogin from '../features/login/OpenLogin';
+import OpenRegister from '../features/register/OpenRegister';
+import OpenAdd from '../features/cars/OpenAdd';
 
 const Logo = styled.div``;
 
@@ -27,10 +29,10 @@ function NavBar() {
           <OpenLogin />
         </li>
         <li>
-          <ButtonLink>Register</ButtonLink>
+          <OpenRegister />
         </li>
         <li>
-          <ButtonLink>Add yours</ButtonLink>
+          <OpenAdd />
         </li>
       </NavItems>
       <ContainerRight>

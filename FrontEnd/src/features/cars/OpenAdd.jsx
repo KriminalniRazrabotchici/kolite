@@ -1,23 +1,23 @@
 import { useState } from 'react';
 import { ButtonLink } from '../../ui/ButtonNav';
 import Modal from '../../ui/Modal';
-import Login from './LoginForm';
+import Add from './AddForm';
 
-function OpenLogin() {
+function OpenAdd() {
   const [isOpenModal, setIsOpenModal] = useState(false);
 
   return (
     <div>
       <ButtonLink onClick={() => setIsOpenModal((show) => !show)}>
-        Login
+        Add
       </ButtonLink>
       {isOpenModal && (
         <Modal onClose={() => setIsOpenModal(false)}>
-          <Login onCloseModal={() => setIsOpenModal(false)} />
+          <Add onCloseModal={() => setIsOpenModal(false)} />
         </Modal>
       )}
     </div>
   );
 }
 
-export default OpenLogin;
+export default OpenAdd;

@@ -17,6 +17,11 @@ const GlobalStyles = createGlobalStyle`
     --color-grey-800: #1f2937;
     --color-grey-900: #111827;
 
+    --color-red-100: #fee2e2;
+    --color-red-500: #EF0107;
+    --color-red-700: #b91c1c;
+    --color-red-800: #991b1b;
+
     --backdrop-color: rgba(255, 255, 255, 0.1);
     
     --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);

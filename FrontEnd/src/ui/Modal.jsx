@@ -1,4 +1,9 @@
+import { createPortal } from 'react-dom';
 import styled from 'styled-components';
+
+import { MdOutlineClose } from 'react-icons/md';
+import { useEffect, useRef } from 'react';
+import { useOutsideClick } from '../hooks/useOutsideClick';
 
 const StyledModal = styled.div`
   position: fixed;
@@ -49,11 +54,19 @@ const Button = styled.button`
   }
 `;
 
-function Modal({ children }) {
-  return (
-    <StyledModal>
-      <div>{children}</div>
-    </StyledModal>
+function Modal({ children, onClose }) {
+  const ref = useOutsideClick(onClose);
+
+  return createPortal(
+    <Overlay>
+      <StyledModal ref={ref}>
+        <Button onClick={onClose}>
+          <MdOutlineClose />
+        </Button>
+        <div>{children}</div>
+      </StyledModal>
+    </Overlay>,
+    document.body
   );
 }
 
