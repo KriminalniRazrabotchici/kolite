@@ -12,6 +12,14 @@ export const Form = styled.form`
   /* background-color: red; */
 `;
 
+export const ContactsForm = styled(Form)`
+  margin: 0 auto;
+  padding: 0 8rem;
+
+  height: 100vh;
+  width: 50%;
+`;
+
 export const Box = styled.div`
   color: var(--color-grey-900);
   font-size: 2rem;
@@ -28,6 +36,7 @@ export const Label = styled.label`
 `;
 
 export const Input = styled.input`
+  font-size: 1.8rem;
   border: 0;
   border-bottom: 1px solid var(--color-grey-600);
   background: transparent;
@@ -38,6 +47,26 @@ export const Input = styled.input`
     border: none;
     outline: none;
     border-bottom: 1px solid var(--color-red-700);
+  }
+`;
+
+export const TextArea = styled.textarea`
+  border: 0;
+  border-bottom: 1px solid var(--color-grey-600);
+  background: transparent;
+  width: 100%;
+  padding: 0.8rem 0 0.6rem 0;
+
+  resize: none;
+
+  &:focus {
+    border: none;
+    outline: none;
+    border-bottom: 1px solid var(--color-red-700);
+  }
+
+  &::-webkit-scrollbar {
+    display: none;
   }
 `;
 
@@ -56,5 +85,11 @@ export const Btn = styled.button`
 
   &:hover {
     background-color: var(--color-red-700);
+  }
+
+  &:disabled {
+    /* border: 3px solid var(--color-grey-400); */
+    color: var(--color-grey-300);
+    background-color: var(--color-grey-400);
   }
 `;
