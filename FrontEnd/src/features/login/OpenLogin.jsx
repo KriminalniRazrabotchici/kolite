@@ -1,38 +1,41 @@
-import { useState } from 'react';
-import { ButtonLink, ButtonRedirect } from '../../ui/ButtonNav';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { ButtonLink } from '../../ui/ButtonNav';
 import Modal from '../../ui/Modal';
 import Login from './LoginForm';
 import Register from '../register/RegisterForm';
-import { RedirectContainer } from '../../ui/RedirectContainer';
+
+import { close, open } from '../../slices/ModalSlice';
+import { hideLogin, showLogin } from '../../slices/LoginSlice';
+import { hideRegister } from '../../slices/RegisterSlice';
 
 function OpenLogin() {
-  const [isOpenModal, setIsOpenModal] = useState(false);
+  const isOpenModal = useSelector((state) => state.modal.isOpen);
 
-  const [isLogin, setIsLogin] = useState(true);
+  const isLogin = useSelector((state) => state.login.isLoginForm);
+  const dispatch = useDispatch();
+
+  function handleLoginButton() {
+    dispatch(open());
+    dispatch(showLogin());
+    dispatch(hideRegister());
+  }
+
+  function handleClose() {
+    dispatch(close());
+    dispatch(hideLogin());
+    dispatch(hideRegister());
+  }
 
   return (
     <div>
-      <ButtonLink onClick={() => setIsOpenModal((show) => !show)}>
-        Login
-      </ButtonLink>
+      <ButtonLink onClick={handleLoginButton}>Login</ButtonLink>
       {isOpenModal && (
-        <Modal
-          onClose={() => {
-            setIsOpenModal(false);
-            setIsLogin(true);
-          }}>
+        <Modal onClose={handleClose}>
           {isLogin ? (
-            <>
-              <Login onCloseModal={() => setIsOpenModal(false)} />
-              <RedirectContainer>
-                <p>If you don't have an account</p>
-                <ButtonRedirect onClick={() => setIsLogin((login) => !login)}>
-                  register
-                </ButtonRedirect>
-              </RedirectContainer>
-            </>
+            <Login onCloseModal={handleClose} />
           ) : (
-            <Register />
+            <Register onCloseModal={handleClose} />
           )}
         </Modal>
       )}

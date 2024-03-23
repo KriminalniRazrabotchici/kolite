@@ -1,5 +1,9 @@
 import { useState } from 'react';
 import { Box, Btn, Form, Input, Label } from '../../ui/Form';
+import { RedirectContainer } from '../../ui/RedirectContainer';
+import { ButtonRedirect } from '../../ui/ButtonNav';
+import { useDispatch } from 'react-redux';
+import { showLogin } from '../../slices/LoginSlice';
 
 function Register({ onCloseModal }) {
   const [name, setName] = useState('');
@@ -7,6 +11,8 @@ function Register({ onCloseModal }) {
   const [number, setNumber] = useState('');
   const [password, setPassword] = useState('');
   const [repass, setRePass] = useState('');
+
+  const dispatch = useDispatch();
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -67,6 +73,13 @@ function Register({ onCloseModal }) {
       </Box>
 
       <Btn>Register</Btn>
+
+      <RedirectContainer>
+        <p>Alredy have an account?</p>
+        <ButtonRedirect onClick={() => dispatch(showLogin())}>
+          login
+        </ButtonRedirect>
+      </RedirectContainer>
     </Form>
   );
 }
