@@ -2,7 +2,7 @@ import { createPortal } from 'react-dom';
 import styled from 'styled-components';
 
 import { MdOutlineClose } from 'react-icons/md';
-import { useEffect, useRef } from 'react';
+
 import { useOutsideClick } from '../hooks/useOutsideClick';
 
 const StyledModal = styled.div`

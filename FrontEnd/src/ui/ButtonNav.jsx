@@ -59,3 +59,31 @@ export const ButtonLink = styled.button`
     transform: translateY(-0.5rem);
   }
 `;
+
+export const ButtonRedirect = styled(ButtonLink)`
+  height: 2rem;
+
+  text-transform: lowercase;
+  font-size: 1.4rem;
+
+  color: var(--color-red-500);
+
+  transition: all 0.5s;
+
+  &::before {
+    content: '';
+    background-color: var(--color-red-500);
+    position: absolute;
+    left: 0;
+    top: 100%;
+    width: 0;
+    height: 0.15rem;
+
+    transition: all 0.5s;
+  }
+
+  &:hover,
+  &:active {
+    color: var(--black);
+  }
+`;
