@@ -1,5 +1,6 @@
 import { HomePage } from '../ui/HomePage';
 import Card from '../ui/Card';
+import SearchBy from '../ui/SearchBy';
 
 const cars = [
   {
@@ -111,12 +112,14 @@ const cars = [
 
 function Home() {
   return (
-    <HomePage>
-      {/* Search parametri */}
-      {cars.map((car) => (
-        <Card car={car} key={car.id} />
-      ))}
-    </HomePage>
+    <>
+      <SearchBy />
+      <HomePage>
+        {cars.map((car) => (
+          <Card car={car} key={car.id} />
+        ))}
+      </HomePage>
+    </>
   );
 }
 

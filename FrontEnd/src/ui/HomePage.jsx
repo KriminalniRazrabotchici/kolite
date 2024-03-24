@@ -12,7 +12,7 @@ export const HomePage = styled.div`
   /* height: 80vh; */
 
   /* background-color: red; */
-  height: 90vh;
+  height: 75vh;
   margin: 2.4rem;
   margin-top: 1.2rem;
   padding: 3.2rem;
