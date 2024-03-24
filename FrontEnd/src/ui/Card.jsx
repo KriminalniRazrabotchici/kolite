@@ -6,6 +6,8 @@ const StyledCard = styled.div`
   width: 80%;
   height: 65vh;
 
+  /* margin-bottom: 8rem; */
+
   padding: 2.4rem;
 
   position: relative;

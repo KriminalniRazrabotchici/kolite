@@ -14,6 +14,7 @@ export const HomePage = styled.div`
   /* background-color: red; */
   height: 90vh;
   margin: 2.4rem;
+  margin-top: 1.2rem;
   padding: 3.2rem;
 
   overflow: scroll;
