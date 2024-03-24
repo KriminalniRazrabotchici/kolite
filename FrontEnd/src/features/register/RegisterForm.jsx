@@ -3,7 +3,7 @@ import { Box, Btn, Form, Input, Label } from '../../ui/Form';
 import { RedirectContainer } from '../../ui/RedirectContainer';
 import { ButtonRedirect } from '../../ui/ButtonNav';
 import { useDispatch } from 'react-redux';
-import { showLogin } from '../../slices/LoginSlice';
+import { showLogin } from '../../slices/LoginRegisterSlice';
 
 function Register({ onCloseModal }) {
   const [name, setName] = useState('');

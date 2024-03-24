@@ -6,13 +6,16 @@ import { Nav } from './Nav';
 import { NavItems } from './NavUl';
 import { ContainerRight } from './NavRightSide';
 import { Button, ButtonLink } from './ButtonNav';
-import OpenLogin from '../features/login/OpenLogin';
-import OpenRegister from '../features/register/OpenRegister';
 import OpenAdd from '../features/cars/OpenAdd';
+import useOpenModal from '../hooks/useOpenModal';
+
+import OpenModal from '../utils/OpenModal';
 
 const Logo = styled.div``;
 
 function NavBar() {
+  const { handleLoginButton, handleRegisterButton } = useOpenModal();
+
   return (
     <Nav>
       <Logo>
@@ -26,10 +29,12 @@ function NavBar() {
           <StyledNavLink to='/contacts'>Contacts</StyledNavLink>
         </li>
         <li>
-          <OpenLogin />
+          <ButtonLink onClick={handleLoginButton}>Login</ButtonLink>
+          <OpenModal />
         </li>
         <li>
-          <OpenRegister />
+          <ButtonLink onClick={handleRegisterButton}>Register</ButtonLink>
+          <OpenModal />
         </li>
         <li>
           <OpenAdd />
