@@ -17,38 +17,39 @@ function NavBar() {
   const { handleLoginButton, handleRegisterButton } = useOpenModal();
 
   return (
-    <Nav>
-      <Logo>
-        <span>Kolite</span>
-      </Logo>
-      <NavItems>
-        <li>
-          <StyledNavLink to='/home'>Home</StyledNavLink>
-        </li>
-        <li>
-          <StyledNavLink to='/contacts'>Contacts</StyledNavLink>
-        </li>
-        <li>
-          <ButtonLink onClick={handleLoginButton}>Login</ButtonLink>
-          <OpenModal />
-        </li>
-        <li>
-          <ButtonLink onClick={handleRegisterButton}>Register</ButtonLink>
-          <OpenModal />
-        </li>
-        <li>
-          <OpenAdd />
-        </li>
-      </NavItems>
-      <ContainerRight>
-        <Button>
-          <BiHeart />
-        </Button>
-        <Button>
-          <BiSortAlt2 />
-        </Button>
-      </ContainerRight>
-    </Nav>
+    <>
+      <OpenModal />
+      <Nav>
+        <Logo>
+          <span>Kolite</span>
+        </Logo>
+        <NavItems>
+          <li>
+            <StyledNavLink to='/home'>Home</StyledNavLink>
+          </li>
+          <li>
+            <StyledNavLink to='/contacts'>Contacts</StyledNavLink>
+          </li>
+          <li>
+            <ButtonLink onClick={handleLoginButton}>Login</ButtonLink>
+          </li>
+          <li>
+            <ButtonLink onClick={handleRegisterButton}>Register</ButtonLink>
+          </li>
+          <li>
+            <OpenAdd />
+          </li>
+        </NavItems>
+        <ContainerRight>
+          <Button>
+            <BiHeart />
+          </Button>
+          <Button>
+            <BiSortAlt2 />
+          </Button>
+        </ContainerRight>
+      </Nav>
+    </>
   );
 }
 

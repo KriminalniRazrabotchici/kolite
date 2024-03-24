@@ -3,7 +3,8 @@ import { Box, Btn, Form, Input, Label } from '../../ui/Form';
 import { RedirectContainer } from '../../ui/RedirectContainer';
 import { ButtonRedirect } from '../../ui/ButtonNav';
 import { useDispatch } from 'react-redux';
-import { showLogin } from '../../slices/LoginRegisterSlice';
+import { hideRegister, showLogin } from '../../slices/LoginRegisterSlice';
+import { open } from '../../slices/ModalSlice';
 
 function Register({ onCloseModal }) {
   const [name, setName] = useState('');
@@ -76,7 +77,12 @@ function Register({ onCloseModal }) {
 
       <RedirectContainer>
         <p>Alredy have an account?</p>
-        <ButtonRedirect onClick={() => dispatch(showLogin())}>
+        <ButtonRedirect
+          onClick={() => {
+            dispatch(open());
+            dispatch(showLogin());
+            dispatch(hideRegister());
+          }}>
           login
         </ButtonRedirect>
       </RedirectContainer>
