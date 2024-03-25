@@ -16,6 +16,11 @@ function useOpenModal() {
     dispatch(showRegister());
   }
 
+  function handleSearchButton() {
+    dispatch(open());
+    dispatch(showRegister());
+  }
+
   return {
     handleLoginButton,
     handleRegisterButton,

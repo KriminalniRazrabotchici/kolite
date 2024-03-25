@@ -57,21 +57,31 @@ const Button = styled.button`
   }
 `;
 
+const buttons = [
+  { id: 1, name: 'Coupe' },
+  { id: 2, name: 'Brand' },
+  { id: 3, name: 'Fuel' },
+  { id: 4, name: 'Transmission' },
+  { id: 5, name: 'Price' },
+  { id: 6, name: 'Year' },
+  { id: 7, name: 'City' },
+  { id: 8, name: 'Color' },
+  { id: 9, name: 'Doors' },
+  { id: 10, name: 'HP' },
+  { id: 11, name: 'Extras' },
+  { id: 12, name: 'Steering wheel' },
+];
+
 function SearchBy() {
+  function handleClick() {}
+
   return (
     <SearchDiv>
-      <Button>Coupe</Button>
-      <Button>Brand</Button>
-      <Button>Fuel type</Button>
-      <Button>Transmission</Button>
-      <Button>Price</Button>
-      <Button>Year</Button>
-      <Button>City</Button>
-      <Button>Color</Button>
-      <Button>Door number</Button>
-      <Button>Horse power</Button>
-      <Button>Extras</Button>
-      <Button>Steering wheel</Button>
+      {buttons.map((btn) => (
+        <Button onClick={handleClick} key={btn.id}>
+          {btn.name}
+        </Button>
+      ))}
     </SearchDiv>
   );
 }
