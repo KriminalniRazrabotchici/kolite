@@ -16,14 +16,15 @@ function useOpenModal() {
     dispatch(showRegister());
   }
 
-  function handleSearchButton() {
+  function handleSearchButton(handler) {
     dispatch(open());
-    dispatch(showRegister());
+    dispatch(handler());
   }
 
   return {
     handleLoginButton,
     handleRegisterButton,
+    handleSearchButton,
   };
 }
 

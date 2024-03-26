@@ -1,4 +1,20 @@
 import styled from 'styled-components';
+import useOpenModal from '../hooks/useOpenModal';
+
+import {
+  showCoupe,
+  showBrand,
+  showFuel,
+  showTransmission,
+  showPrice,
+  showYear,
+  showCity,
+  showColor,
+  showHP,
+  showDoors,
+  showExtras,
+  showWheel,
+} from '../slices/SearchButtonsSlice';
 
 const SearchDiv = styled.div`
   width: 90%;
@@ -58,27 +74,31 @@ const Button = styled.button`
 `;
 
 const buttons = [
-  { id: 1, name: 'Coupe' },
-  { id: 2, name: 'Brand' },
-  { id: 3, name: 'Fuel' },
-  { id: 4, name: 'Transmission' },
-  { id: 5, name: 'Price' },
-  { id: 6, name: 'Year' },
-  { id: 7, name: 'City' },
-  { id: 8, name: 'Color' },
-  { id: 9, name: 'Doors' },
-  { id: 10, name: 'HP' },
-  { id: 11, name: 'Extras' },
-  { id: 12, name: 'Steering wheel' },
+  { id: 1, name: 'Coupe', fn: showCoupe() },
+  { id: 2, name: 'Brand', fn: showBrand() },
+  { id: 3, name: 'Fuel', fn: showFuel() },
+  { id: 4, name: 'Transmission', fn: showTransmission() },
+  { id: 5, name: 'Price', fn: showPrice() },
+  { id: 6, name: 'Year', fn: showYear() },
+  { id: 7, name: 'City', fn: showCity() },
+  { id: 8, name: 'Color', fn: showColor() },
+  { id: 9, name: 'Doors', fn: showDoors() },
+  { id: 10, name: 'HP', fn: showHP() },
+  { id: 11, name: 'Extras', fn: showExtras() },
+  { id: 12, name: 'Steering wheel', fn: showWheel() },
 ];
 
 function SearchBy() {
-  function handleClick() {}
+  const handleSearchButton = useOpenModal();
+
+  function handleClick(btn) {
+    handleSearchButton(btn.fn);
+  }
 
   return (
     <SearchDiv>
       {buttons.map((btn) => (
-        <Button onClick={handleClick} key={btn.id}>
+        <Button onClick={() => handleClick(btn)} key={btn.id}>
           {btn.name}
         </Button>
       ))}
