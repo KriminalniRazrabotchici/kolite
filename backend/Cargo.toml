@@ -18,6 +18,7 @@ dotenv = "0.15"
 argon2 = "0.5"
 rand = "0.8"
 database = { path = "./database" }
+hex = "0.4.3"
 
 [dev-dependencies]
 mockall = "0.12"

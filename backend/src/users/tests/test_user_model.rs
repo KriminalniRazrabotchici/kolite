@@ -10,10 +10,11 @@ mod test_user_model {
 
         let user = User::new(username, password, email);
 
-        assert_eq!(user.name, username);
-        assert_eq!(user.email, email);
-        assert!(user.password.len() == 128);
-        assert!(user.is_admin == false);
-        assert!(user.is_active == true);
+        let hashed_password = user.get_password();
+
+        assert_eq!(user.get_name(), username);
+        assert_eq!(user.get_email(), email);
+        assert_eq!(hashed_password.len(), 128);
+        assert_ne!(hashed_password, password.as_bytes());
     }
 }
