@@ -1,5 +1,8 @@
 import styled from 'styled-components';
-import useOpenModal from '../hooks/useOpenModal';
+import OpenButtons from '../utils/OpenButtons';
+
+import { useDispatch } from 'react-redux';
+import { openSearch } from '../slices/ModalSlice';
 
 import {
   showCoupe,
@@ -89,20 +92,24 @@ const buttons = [
 ];
 
 function SearchBy() {
-  const handleSearchButton = useOpenModal();
+  const dispatch = useDispatch();
 
   function handleClick(btn) {
-    handleSearchButton(btn.fn);
+    dispatch(openSearch());
+    dispatch(btn.fn);
   }
 
   return (
-    <SearchDiv>
-      {buttons.map((btn) => (
-        <Button onClick={() => handleClick(btn)} key={btn.id}>
-          {btn.name}
-        </Button>
-      ))}
-    </SearchDiv>
+    <>
+      <OpenButtons />
+      <SearchDiv>
+        {buttons.map((btn) => (
+          <Button onClick={() => handleClick(btn)} key={btn.id}>
+            {btn.name}
+          </Button>
+        ))}
+      </SearchDiv>
+    </>
   );
 }
 
