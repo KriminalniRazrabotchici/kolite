@@ -73,6 +73,7 @@ function OpenButtons() {
       {isOpenSearchModal && (
         <Modal onClose={handleCloseButtons}>{isCoupe && 'test'}</Modal>
       )}
+      {/* test */}
     </div>
   );
 }
