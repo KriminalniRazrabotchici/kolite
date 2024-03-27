@@ -5,9 +5,6 @@ use serde::{
     de::{self, Deserialize, Deserializer, Visitor}, ser::{Serialize, SerializeStruct, Serializer}
 };
 
-
-
-
 #[derive(Debug)]
 pub struct User {
     uuid: [u8; 16],
@@ -223,8 +220,7 @@ impl<'de> Deserialize<'de> for User {
                             "is_admin" => Ok(Field::IsAdmin),
                             "is_active" => Ok(Field::IsActive),
                             _ => Err(de::Error::unknown_field(value, FIELDS)),
-                        } 
-                        
+                        }  
                     }
                 }
 

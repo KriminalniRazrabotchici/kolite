@@ -11,7 +11,7 @@ pub trait Savable: Serialize + DeserializeOwned
     const VALIDATION_RULES_STRICTNESS: ValidationLevel;
     const VALIDATION_ACTION: ValidationAction;
 
-    async fn get_create_collection(&self, db: &DatabaseHandler) -> Result<CollectionHandler<Self>, CrudError> {
+    async fn get_create_collection(db: &DatabaseHandler) -> Result<CollectionHandler<Self>, CrudError> {
         if let Ok(collection) = db.get_collection(&Self::COLLECTION_NAME).await {
             Ok(collection)
         }else {
