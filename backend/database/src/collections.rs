@@ -34,12 +34,15 @@ where T: Serialize + DeserializeOwned
         }
     }
 
-    pub async fn save_many<I>(&self, models: Box<I>) -> Result<(), DatabaseError> 
-    where I: IntoIterator<Item = T>
+    pub async fn save_many<'a, I>(&self, models: I) -> Result<(), DatabaseError> 
+    where 
+    I: 'a + IntoIterator<Item = &'a T>,
+    T: 'a
+
     {
         let options = InsertManyOptions::default();
 
-        let operation = self.collection.insert_many(*models, options).await;
+        let operation = self.collection.insert_many(models, options).await;
 
         match operation {
             Ok(_) => Ok(()),

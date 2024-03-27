@@ -66,9 +66,8 @@ mod tests{
         let collection_handler = handler.get_collection::<SampleModel>("test_inserting_many_models_to_database").await.unwrap();
 
         let models = SampleModel::generate_many(10);
-        let models = Box::new(models);
 
-        let insert_result = collection_handler.save_many(models.clone()).await;
+        let insert_result = collection_handler.save_many(&models).await;
 
         match insert_result {
             Ok(_) => assert!(true),
@@ -85,13 +84,12 @@ mod tests{
         let collection_handler = handler.get_collection::<SampleModel>("test_getting_many_models_from_database").await.unwrap();
 
         let models = SampleModel::generate_many(10);
-        let models = Box::new(models);
 
-        let _ = collection_handler.save_many(models.clone()).await;
+        let _ = collection_handler.save_many(&models).await;
 
         let returned_models = collection_handler.get_many(None, None).await.unwrap();
 
-        assert_models_are_equal(*models, returned_models);
+        assert_models_are_equal(models, returned_models);
     }
 
 
@@ -103,9 +101,8 @@ mod tests{
         let collection_handler = handler.get_collection::<SampleModel>("test_getting_many_models_with_query").await.unwrap();
 
         let models = SampleModel::generate_many(10);
-        let models = Box::new(models);
 
-        let _ = collection_handler.save_many(models.clone()).await;
+        let _ = collection_handler.save_many(&models).await;
 
         let query = doc! {
             "age": {
@@ -223,9 +220,8 @@ mod tests{
         let collection_handler = handler.get_collection::<SampleModel>("test_deleting_many_models").await.unwrap();
 
         let models = SampleModel::generate_many(10);
-        let models = Box::new(models);
 
-        let _ = collection_handler.save_many(models.clone()).await;
+        let _ = collection_handler.save_many(&models).await;
 
         let query = doc! {
             "age": {
@@ -285,9 +281,8 @@ mod tests{
         let collection_handler = handler.get_collection::<SampleModel>("test_updating_many_models").await.unwrap();
 
         let models = SampleModel::generate_many(10);
-        let models = Box::new(models);
 
-        let _ = collection_handler.save_many(models.clone()).await;
+        let _ = collection_handler.save_many(&models).await;
 
         let query = doc! {
             "age": {
