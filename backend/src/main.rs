@@ -1,7 +1,7 @@
 mod users;
 mod db_operations;
 mod errors;
-
+mod auth;
 
 // TODO complete a registration
 fn main() {

@@ -7,7 +7,7 @@ use serde::{
 
 #[derive(Debug)]
 pub struct User {
-    uuid: [u8; 16],
+    uuid: String,
     name: String,
     email: String,
     password: [u8; 128],
@@ -35,15 +35,15 @@ impl User {
         }
     }
 
-    fn generate_uuid() -> [u8; 16]{ 
+    fn generate_uuid() -> String{ 
         let uuid = Uuid::now_v7()
             .as_bytes()
             .to_owned();
 
-        uuid
+        hex::encode(uuid)
     }
 
-    pub fn get_uuid(&self) -> &[u8; 16] {
+    pub fn get_uuid(&self) -> &str {
         &self.uuid
     }
 
@@ -126,7 +126,8 @@ impl<'de> Deserialize<'de> for User {
             Email,
             Password,
             IsAdmin,
-            IsActive
+            IsActive,
+            Skipped,
         } 
 
 
@@ -143,7 +144,7 @@ impl<'de> Deserialize<'de> for User {
                 where
                     A: de::MapAccess<'de>, 
             {
-                let mut uuid: Option<[u8; 16]> = None;
+                let mut uuid: Option<String> = None;
                 let mut name: Option<String> = None;
                 let mut email: Option<String> = None;
                 let mut password: Option<[u8; 128]> = None;
@@ -157,8 +158,8 @@ impl<'de> Deserialize<'de> for User {
                         Field::Email => email = Some(map.next_value()?),
                         Field::Password => {
                             let pass_in: String = map.next_value()?;
-                            let pass_bytes = hex::decode(pass_in).
-                                map_err(|_| de::Error::custom("password could not be read"))?;
+                            let pass_bytes = hex::decode(pass_in)
+                                .map_err(|_| de::Error::custom("password could not be read"))?;
 
                             let mut pass = [0u8; 128];
 
@@ -169,7 +170,8 @@ impl<'de> Deserialize<'de> for User {
 
                         }
                         Field::IsActive => is_active = Some(map.next_value()?),
-                        Field::IsAdmin => is_admin = Some(map.next_value()?)
+                        Field::IsAdmin => is_admin = Some(map.next_value()?),
+                        Field::Skipped => {let _ = map.next_value::<de::IgnoredAny>()?; },
                     }
                 }
 
@@ -219,6 +221,7 @@ impl<'de> Deserialize<'de> for User {
                             "password" => Ok(Field::Password),
                             "is_admin" => Ok(Field::IsAdmin),
                             "is_active" => Ok(Field::IsActive),
+                            "_id" => Ok(Field::Skipped),
                             _ => Err(de::Error::unknown_field(value, FIELDS)),
                         }  
                     }

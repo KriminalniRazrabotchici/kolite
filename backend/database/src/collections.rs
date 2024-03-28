@@ -23,6 +23,10 @@ where T: Serialize + DeserializeOwned
 impl <T> CollectionHandler<T>
 where T: Serialize + DeserializeOwned
 {
+    pub fn get_collection(&self) -> &Collection<T> {
+        &self.collection
+    }
+
     pub async fn save_one(&self, model: &T) -> Result<(), DatabaseError> {
         let options = InsertOneOptions::default();
 

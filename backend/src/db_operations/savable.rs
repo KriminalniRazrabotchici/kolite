@@ -1,15 +1,13 @@
 use database::{collections::CollectionHandler, handler::DatabaseHandler};
-use mongodb::{bson::Document, options::{ValidationAction, ValidationLevel}};
+use mongodb::bson::Document;
 use serde::{de::DeserializeOwned, Serialize};
 
 use crate::errors::CrudError;
 
-pub trait Savable: Serialize + DeserializeOwned
+pub trait Savable: Serialize + DeserializeOwned + Send + Sync + Unpin
 { 
-    const COLLECTION_NAME: String;
+    const COLLECTION_NAME: &'static str;
     const VALIDATION_RULES: Option<Document>;
-    const VALIDATION_RULES_STRICTNESS: ValidationLevel;
-    const VALIDATION_ACTION: ValidationAction;
 
     async fn get_create_collection(db: &DatabaseHandler) -> Result<CollectionHandler<Self>, CrudError> {
         if let Ok(collection) = db.get_collection(&Self::COLLECTION_NAME).await {
