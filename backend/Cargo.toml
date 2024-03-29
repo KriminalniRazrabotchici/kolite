@@ -20,6 +20,8 @@ rand = "0.8"
 database = { path = "./database" }
 hex = "0.4.3"
 tokio = "1.36.0"
+time = "0.3.34"
+base64 = "0.22.0"
 
 [dev-dependencies]
 mockall = "0.12"

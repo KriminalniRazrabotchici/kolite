@@ -8,6 +8,7 @@ pub enum DatabaseError {
     CreateCollectionError(String),
     CouldNotSaveError(String),
     CursorError(String),
+    NotFoundError(String),
 }
 
 impl fmt::Display for DatabaseError {
@@ -19,6 +20,7 @@ impl fmt::Display for DatabaseError {
             DatabaseError::CreateCollectionError(e) => write!(f, "CreateCollectionError: {}", e),
             DatabaseError::CouldNotSaveError(e) => write!(f, "CouldNotSaveError: {}", e),
             DatabaseError::CursorError(e) => write!(f, "CursorError: {}", e),
+            DatabaseError::NotFoundError(e) => write!(f, "NotFoundError: {}", e),
         }
     }
 }

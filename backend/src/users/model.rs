@@ -1,5 +1,5 @@
+use base64::prelude::*;
 use uuid::Uuid;
-use hex;
 use crate::users::hasher::Hasher;
 use serde::{
     de::{self, Deserialize, Deserializer, Visitor}, ser::{Serialize, SerializeStruct, Serializer}
@@ -99,9 +99,7 @@ impl Serialize for User {
         where
             S: Serializer
     {
-        let password = self.password.iter()
-            .map(|byte| format!("{:02x}", byte))
-            .collect::<String>();
+        let password = BASE64_STANDARD.encode(&self.password);
 
         let mut state = serializer.serialize_struct("User", 6)?;
         state.serialize_field("uuid", &self.uuid)?;
@@ -158,7 +156,7 @@ impl<'de> Deserialize<'de> for User {
                         Field::Email => email = Some(map.next_value()?),
                         Field::Password => {
                             let pass_in: String = map.next_value()?;
-                            let pass_bytes = hex::decode(pass_in)
+                            let pass_bytes = BASE64_STANDARD.decode(pass_in)
                                 .map_err(|_| de::Error::custom("password could not be read"))?;
 
                             let mut pass = [0u8; 128];
