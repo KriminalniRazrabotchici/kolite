@@ -1,91 +1,4 @@
 {
-  "brands": [
-    "Audi",
-    "VW",
-    "Mercedes-Benz",
-    "BMW",
-    "Opel",
-    "Peugeot",
-    "Toyota",
-    "Renault",
-    "Ford",
-    "Citroen",
-    "Nissan",
-    "Honda",
-    "Mazda",
-    "Fiat",
-    "Hyundai",
-    "Skoda",
-    "Seat",
-    "Kia",
-    "Mitsubishi",
-    "Suzuki",
-    "Volvo",
-    "Dacia",
-    "Subaru",
-    "Chevrolet",
-    "Alfa Romeo",
-    "Land Rover",
-    "Jeep",
-    "Mini",
-    "Porsche",
-    "Daihatsu",
-    "Chrysler",
-    "Lancia",
-    "Ssangyong",
-    "Lexus",
-    "Smart",
-    "Jaguar",
-    "Lada",
-    "Rover",
-    "Dodge",
-    "Saab",
-    "Daewoo",
-    "Infiniti",
-    "Great wall",
-    "Tesla",
-    "Isuzu",
-    "Range Rover",
-    "UAZ",
-    "Cadillac",
-    "Moskvich",
-    "Maserati",
-    "Tata",
-    "DS",
-    "Trabant",
-    "Wartburg",
-    "Bentley",
-    "DR",
-    "Lincoln",
-    "Hummer",
-    "Volga",
-    "Acura",
-    "Pontiac",
-    "GAZ",
-    "MG",
-    "Aston Martin",
-    "Haval",
-    "GMC",
-    "Zaz",
-    "Lamborghini",
-    "BAW",
-    "Oldsmobile",
-    "Ferrari",
-    "Rolls Royce",
-    "Buick",
-    "Maybach",
-    "Zastava",
-    "Datsun",
-    "Aixam",
-    "BYD",
-    "Aro",
-    "Yogomo",
-    "Gac Gonow",
-    "Corvette",
-    "Oxford",
-    "McLaren",
-    "Vauxhall"
-  ],
   "models": [
     {
       "Audi": [
@@ -148,7 +61,9 @@
         "TT",
         "TT Roadster",
         "TTS"
-      ],
+      ]
+    },
+    {
       "VW": [
         "Amarok",
         "Amarok DoubleCab",
@@ -210,7 +125,9 @@
         "Transporter",
         "up!",
         "Vento"
-      ],
+      ]
+    },
+    {
       "Mercedes-Benz": [
         "0405",
         "110",
@@ -471,7 +388,9 @@
         "Всички X-класа",
         "X 220",
         "X 250"
-      ],
+      ]
+    },
+    {
       "BMW": [
         "Всички 1-серия",
         "114",
@@ -577,7 +496,9 @@
         "Z1",
         "Z3",
         "Z4"
-      ],
+      ]
+    },
+    {
       "Opel": [
         "Adam",
         "Agila",
@@ -612,7 +533,9 @@
         "Vivaro",
         "Zafira",
         "Zafira Tourer"
-      ],
+      ]
+    },
+    {
       "Peugeot": [
         "1007",
         "104",
@@ -666,7 +589,9 @@
         "RCZ",
         "Rifter",
         "Traveller"
-      ],
+      ]
+    },
+    {
       "Toyota": [
         "4-Runner",
         "Auris",
@@ -711,7 +636,9 @@
         "Verso-S",
         "Yaris",
         "Yaris verso"
-      ],
+      ]
+    },
+    {
       "Renault": [
         "10",
         "11",
@@ -755,7 +682,9 @@
         "Vel Satis",
         "Wind",
         "Zoe"
-      ],
+      ]
+    },
+    {
       "Ford": [
         "20m",
         "B-Max",
@@ -800,7 +729,9 @@
         "Thunderbird",
         "Tourneo",
         "Transit"
-      ],
+      ]
+    },
+    {
       "Citroen": [
         "2 CV",
         "Ami",
@@ -848,7 +779,9 @@
         "Xsara",
         "Xsara Picasso",
         "ZX"
-      ],
+      ]
+    },
+    {
       "Nissan": [
         "100 NX",
         "200 SX",
@@ -898,7 +831,9 @@
         "Vanette",
         "X-Terra",
         "X-Trail"
-      ],
+      ]
+    },
+    {
       "Honda": [
         "Accord",
         "Aerodeck",
@@ -925,7 +860,9 @@
         "Shuttle",
         "Stream",
         "ZR-V"
-      ],
+      ]
+    },
+    {
       "Mazda": [
         "121",
         "2",
@@ -954,7 +891,9 @@
         "RX-8",
         "Tribute",
         "Xedos"
-      ],
+      ]
+    },
+    {
       "Fiat": [
         "125",
         "126",
@@ -998,7 +937,9 @@
         "Tipo",
         "Ulysse",
         "Uno"
-      ],
+      ]
+    },
+    {
       "Hyundai": [
         "Accent",
         "Atos",
@@ -1038,7 +979,9 @@
         "Veloster",
         "XG 30",
         "XG 350"
-      ],
+      ]
+    },
+    {
       "Skoda": [
         "105",
         "120",
@@ -1060,7 +1003,9 @@
         "Scala",
         "Superb",
         "Yeti"
-      ],
+      ]
+    },
+    {
       "Seat": [
         "Alhambra",
         "Altea",
@@ -1079,7 +1024,9 @@
         "Terra",
         "Toledo",
         "Vario"
-      ],
+      ]
+    },
+    {
       "Kia": [
         "Avella Delta",
         "Cadenza",
@@ -1114,7 +1061,9 @@
         "Stonic",
         "Venga",
         "XCeed"
-      ],
+      ]
+    },
+    {
       "Mitsubishi": [
         "ASX",
         "Carisma",
@@ -1140,7 +1089,9 @@
         "Space Runner",
         "Space Star",
         "Space Wagon"
-      ],
+      ]
+    },
+    {
       "Suzuki": [
         "Alto",
         "Baleno",
@@ -1161,7 +1112,9 @@
         "Wagon R+",
         "X-90",
         "XL7"
-      ],
+      ]
+    },
+    {
       "Volvo": [
         "144",
         "240",
@@ -1192,7 +1145,9 @@
         "XC 60",
         "XC 70",
         "XC 90"
-      ],
+      ]
+    },
+    {
       "Dacia": [
         "1310",
         "Dokker",
@@ -1204,7 +1159,9 @@
         "Sandero",
         "Solenza",
         "Spring"
-      ],
+      ]
+    },
+    {
       "Subaru": [
         "B9 Tribeca",
         "Baja",
@@ -1223,7 +1180,9 @@
         "WRX",
         "XT",
         "XV"
-      ],
+      ]
+    },
+    {
       "Chevrolet": [
         "Alero",
         "Astro",
@@ -1261,7 +1220,9 @@
         "Trax",
         "Venture",
         "Volt"
-      ],
+      ]
+    },
+    {
       "Alfa Romeo": [
         "145",
         "146",
@@ -1287,7 +1248,9 @@
         "Spider",
         "Stelvio",
         "Tonale"
-      ],
+      ]
+    },
+    {
       "Land Rover": [
         "Defender",
         "Discovery",
@@ -1303,7 +1266,9 @@
         "Range Rover Sport",
         "Range Rover Vogue",
         "Velar"
-      ],
+      ]
+    },
+    {
       "Jeep": [
         "Cherokee",
         "CJ",
@@ -1315,7 +1280,9 @@
         "Patriot",
         "Renegade",
         "Wrangler"
-      ],
+      ]
+    },
+    {
       "Mini": [
         "Clubman",
         "Cooper",
@@ -1324,7 +1291,9 @@
         "John Cooper Works",
         "ONE",
         "Paceman"
-      ],
+      ]
+    },
+    {
       "Porsche": [
         "911",
         "911 Carrera C2",
@@ -1339,7 +1308,9 @@
         "Macan",
         "Panamera",
         "Taycan"
-      ],
+      ]
+    },
+    {
       "Daihatsu": [
         "Applause",
         "Charade",
@@ -1355,7 +1326,9 @@
         "Terios",
         "TREVIS",
         "YRV"
-      ],
+      ]
+    },
+    {
       "Chrysler": [
         "200C",
         "300 M",
@@ -1370,7 +1343,9 @@
         "Stratus",
         "Vision",
         "Voyager"
-      ],
+      ]
+    },
+    {
       "Lancia": [
         "Beta",
         "Dedra",
@@ -1386,7 +1361,9 @@
         "Y",
         "Ypsilon",
         "Zeta"
-      ],
+      ]
+    },
+    {
       "Ssangyong": [
         "Actyon",
         "Korando",
@@ -1396,7 +1373,9 @@
         "Rodius",
         "TIVOLI",
         "XLV"
-      ],
+      ]
+    },
+    {
       "Lexus": [
         "CT 200h",
         "ES350",
@@ -1431,8 +1410,11 @@
         "RX450",
         "SC430",
         "UX"
-      ],
-      "Smart": ["ForFour", "ForTwo", "Mc", "Micro", "Roadster"],
+      ]
+    },
+    { "Smart": ["ForFour", "ForTwo", "Mc"] },
+    { "Micro": ["Roadster"] },
+    {
       "Jaguar": [
         "Daimler",
         "E Type",
@@ -1452,7 +1434,9 @@
         "XJS",
         "XK",
         "XKR"
-      ],
+      ]
+    },
+    {
       "Lada": [
         "1200",
         "1300",
@@ -1481,7 +1465,9 @@
         "Priora",
         "Samara",
         "Vesta"
-      ],
+      ]
+    },
+    {
       "Rover": [
         "100",
         "200",
@@ -1502,7 +1488,9 @@
         "Maestro",
         "Streetwise",
         "ZT"
-      ],
+      ]
+    },
+    {
       "Dodge": [
         "Avenger",
         "Caliber",
@@ -1518,8 +1506,10 @@
         "Shadow",
         "Stealth",
         "Stratus"
-      ],
-      "Saab": [["9-3", "9-3x", "9-5", "9-7X", "900", "9000"]],
+      ]
+    },
+    { "Saab": ["9-3", "9-3x", "9-5", "9-7X", "900", "9000"] },
+    {
       "Daewoo": [
         "Damas",
         "Espero",
@@ -1538,7 +1528,9 @@
         "Rezzo",
         "Tacuma",
         "Tico"
-      ],
+      ]
+    },
+    {
       "Infiniti": [
         "EX",
         "FX",
@@ -1556,7 +1548,9 @@
         "QX60",
         "QX70",
         "QX80"
-      ],
+      ]
+    },
+    {
       "Great wall": [
         "C20 R",
         "C30",
@@ -1574,17 +1568,21 @@
         "Steed 6",
         "Voleex C10",
         "Voleex C30"
-      ],
-      "Tesla": ["Model 3", "Model S", "Model X", "Model Y"],
-      "Isuzu": ["Campo", "D-Max", "PICK UP", "Rodeo", "Trooper"],
+      ]
+    },
+    { "Tesla": ["Model 3", "Model S", "Model X", "Model Y"] },
+    { "Isuzu": ["Campo", "D-Max", "PICK UP", "Rodeo", "Trooper"] },
+    {
       "Range Rover": [
         "Discovery 4",
         "Evoque",
         "Freelander 2",
         "Range Rover",
         "Sport"
-      ],
-      "UAZ": ["452", "460", "469", "669", "69", "Patriot"],
+      ]
+    },
+    { "UAZ": ["452", "460", "469", "669", "69", "Patriot"] },
+    {
       "Cadillac": [
         "ATS",
         "BLC",
@@ -1600,7 +1598,9 @@
         "XLR",
         "XT5",
         "XT6"
-      ],
+      ]
+    },
+    {
       "Moskvich": [
         "1500",
         "2138",
@@ -1614,7 +1614,9 @@
         "412",
         "Aleko",
         "Иж"
-      ],
+      ]
+    },
+    {
       "Maserati": [
         "Biturbo",
         "Ghibli",
@@ -1626,11 +1628,13 @@
         "Quattroporte",
         "Quattroporte S",
         "Quattroporte Sport GT S"
-      ],
-      "Tata": ["Aria", "Indica", "Indigo", "Safari", "Telcoline", "Xenon"],
-      "DS": ["DS 3", "DS 4", "DS 5", "DS 7 Crossback"],
-      "Trabant": ["600", "601", "Combi"],
-      "Wartburg": ["1.3", "311", "312", "353"],
+      ]
+    },
+    { "Tata": ["Aria", "Indica", "Indigo", "Safari", "Telcoline", "Xenon"] },
+    { "DS": ["DS 3", "DS 4", "DS 5", "DS 7 Crossback"] },
+    { "Trabant": ["600", "601", "Combi"] },
+    { "Wartburg": ["1.3", "311", "312", "353"] },
+    {
       "Bentley": [
         "Arnage",
         "Bentayga",
@@ -1638,22 +1642,18 @@
         "Flying Spur",
         "Mulsanne",
         "T1"
-      ],
-      "DR": ["1", "2", "3", "5", "Zero"],
-      "Lincoln": ["Continental", "Mark", "MKX", "MKZ", "Navigator", "Town Car"],
-      "Hummer": ["H1", "H2", "H3"],
-      "Volga": ["22", "24", "3110", "3111", "M 21"],
-      "Acura": [
-        "Integra",
-        "MDX",
-        "NSX",
-        "RDX",
-        "RL",
-        "TL",
-        "TLX",
-        "TSX",
-        "ZDX"
-      ],
+      ]
+    },
+    { "DR": ["1", "2", "3", "5", "Zero"] },
+    {
+      "Lincoln": ["Continental", "Mark", "MKX", "MKZ", "Navigator", "Town Car"]
+    },
+    { "Hummer": ["H1", "H2", "H3"] },
+    { "Volga": ["22", "24", "3110", "3111", "M 21"] },
+    {
+      "Acura": ["Integra", "MDX", "NSX", "RDX", "RL", "TL", "TLX", "TSX", "ZDX"]
+    },
+    {
       "Pontiac": [
         "Bonneville",
         "Fiero",
@@ -1662,9 +1662,11 @@
         "Sunbird",
         "Trans Am",
         "Trans Sport"
-      ],
-      "GAZ": ["69"],
-      "MG": ["MGB", "MGF", "TF", "ZR", "ZT"],
+      ]
+    },
+    { "GAZ": ["69"] },
+    { "MG": ["MGB", "MGF", "TF", "ZR", "ZT"] },
+    {
       "Aston Martin": [
         "DB",
         "DB11",
@@ -1675,32 +1677,35 @@
         "V8 Vantage",
         "Vanquish",
         "Vantage"
-      ],
-      "Haval": ["Dargo", "H2", "H6", "Jolion"],
-      "GMC": ["Acadia", "Envoy", "Safari", "Sierra", "Terrain", "Yukon"],
-      "Zaz": ["965", "968", "Tavria"],
-      "Lamborghini": ["Aventador", "Gallardo", "Huracan", "Urus"],
-      "BAW": ["Pony"],
-      "Oldsmobile": ["Cutlass", "Omega"],
-      "Ferrari": ["812", "F40", "Portofino"],
+      ]
+    },
+    { "Haval": ["Dargo", "H2", "H6", "Jolion"] },
+    { "GMC": ["Acadia", "Envoy", "Safari", "Sierra", "Terrain", "Yukon"] },
+    { "Zaz": ["965", "968", "Tavria"] },
+    { "Lamborghini": ["Aventador", "Gallardo", "Huracan", "Urus"] },
+    { "BAW": ["Pony"] },
+    { "Oldsmobile": ["Cutlass", "Omega"] },
+    { "Ferrari": ["812", "F40", "Portofino"] },
+    {
       "Rolls Royce": [
         "Phantom",
         "Silver Seraph",
         "Silver Spur",
         "Silver Wraith"
-      ],
-      "Buick": ["Century", "Electra", "Skylark"],
-      "Maybach": ["57", "62"],
-      "Zastava": ["750", "Gt 55"],
-      "Datsun": ["Bluebird", "Stanza"],
-      "Aixam": ["400", "City"],
-      "Yogomo": ["MA"],
-      "Gac Gonow": ["AOOSED", "STARRY"],
-      "Corvette": ["C7"],
-      "Oxford": ["Series VI"],
-      "McLaren": ["600"],
+      ]
+    },
+    { "Buick": ["Century", "Electra", "Skylark"] },
+    { "Maybach": ["57", "62"] },
+    { "Zastava": ["750", "Gt 55"] },
+    { "Datsun": ["Bluebird", "Stanza"] },
+    { "Aixam": ["400", "City"] },
+    { "Yogomo": ["MA"] },
+    { "Gac Gonow": ["AOOSED", "STARRY"] },
+    { "Corvette": ["C7"] },
+    { "Oxford": ["Series VI"] },
+    { "McLaren": ["600"] },
+    {
       "Vauxhall": ["Monterey"]
     }
-  ],
-  "offers": []
+  ]
 }
