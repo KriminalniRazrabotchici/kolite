@@ -112,17 +112,6 @@ const cars = [
 ];
 
 function Home() {
-  useEffect(function () {
-    async function fetchData() {
-      const res = await fetch('http://localhost:8000/brands');
-
-      const data = await res.json();
-
-      console.log(data);
-    }
-    fetchData();
-  }, []);
-
   return (
     <>
       <SearchBy />
