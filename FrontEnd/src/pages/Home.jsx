@@ -2,6 +2,7 @@ import { HomePage } from '../ui/HomePage';
 import Card from '../ui/Card';
 import SearchBy from '../ui/SearchBy';
 import { useEffect } from 'react';
+import Loader from '../ui/Loader';
 
 const cars = [
   {
@@ -120,6 +121,7 @@ function Home() {
           <Card car={car} key={car.id} />
         ))}
       </HomePage>
+      {/* <Loader /> */}
     </>
   );
 }
