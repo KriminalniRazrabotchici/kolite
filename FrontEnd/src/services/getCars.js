@@ -1,4 +1,4 @@
-export async function getCabins() {
+export async function getCars() {
   const res = await fetch('http://localhost:8000/brands');
 
   if (!res.ok) {

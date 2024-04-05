@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialStateButtons = {
   isCoupe: false,
   isBrand: false,
+  isModel: false,
   isFuel: false,
   isTransmission: false,
   isPrice: false,
@@ -30,6 +31,12 @@ const searchSlice = createSlice({
     },
     hideBrand(state) {
       state.isBrand = false;
+    },
+    showModel(state) {
+      state.isModel = true;
+    },
+    hideModel(state) {
+      state.isModel = false;
     },
     showFuel(state) {
       state.isFuel = true;
@@ -99,6 +106,8 @@ export const {
   hideCoupe,
   showBrand,
   hideBrand,
+  showModel,
+  hideModel,
   showFuel,
   hideFuel,
   showTransmission,

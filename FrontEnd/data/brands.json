@@ -1,4 +1,14 @@
 {
+  "coupes": [
+    "Sedan",
+    "HatchBack",
+    "Wagon",
+    "Coupe",
+    "Cabrio",
+    "Jeep",
+    "Pickup",
+    "Van"
+  ],
   "brands": [
     {
       "name": "Audi",

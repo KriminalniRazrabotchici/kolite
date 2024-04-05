@@ -7,6 +7,7 @@ import { openSearch } from '../slices/ModalSlice';
 import {
   showCoupe,
   showBrand,
+  showModel,
   showFuel,
   showTransmission,
   showPrice,
@@ -77,18 +78,19 @@ const Button = styled.button`
 `;
 
 const buttons = [
-  { id: 1, name: 'Coupe', fn: showCoupe() },
-  { id: 2, name: 'Brand', fn: showBrand() },
-  { id: 3, name: 'Fuel', fn: showFuel() },
-  { id: 4, name: 'Transmission', fn: showTransmission() },
-  { id: 5, name: 'Price', fn: showPrice() },
-  { id: 6, name: 'Year', fn: showYear() },
-  { id: 7, name: 'City', fn: showCity() },
-  { id: 8, name: 'Color', fn: showColor() },
-  { id: 9, name: 'Doors', fn: showDoors() },
-  { id: 10, name: 'HP', fn: showHP() },
-  { id: 11, name: 'Extras', fn: showExtras() },
-  { id: 12, name: 'Steering wheel', fn: showWheel() },
+  { id: 1, name: 'Coupe', fnShow: showCoupe() },
+  { id: 2, name: 'Brand', fnShow: showBrand() },
+  { id: 3, name: 'Model', fnShow: showModel() },
+  { id: 4, name: 'Fuel', fnShow: showFuel() },
+  { id: 5, name: 'Transmission', fnShow: showTransmission() },
+  { id: 6, name: 'Price', fnShow: showPrice() },
+  { id: 7, name: 'Year', fnShow: showYear() },
+  { id: 8, name: 'City', fnShow: showCity() },
+  { id: 9, name: 'Color', fnShow: showColor() },
+  { id: 10, name: 'Doors', fnShow: showDoors() },
+  { id: 11, name: 'HP', fnShow: showHP() },
+  { id: 12, name: 'Extras', fnShow: showExtras() },
+  { id: 13, name: 'Steering wheel', fnShow: showWheel() },
 ];
 
 function SearchBy() {
@@ -96,7 +98,7 @@ function SearchBy() {
 
   function handleClick(btn) {
     dispatch(openSearch());
-    dispatch(btn.fn);
+    dispatch(btn.fnShow);
   }
 
   return (
