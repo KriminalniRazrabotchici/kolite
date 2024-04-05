@@ -1,5 +1,6 @@
 pub mod model;
-pub mod crud;
+pub mod api;
+mod crud;
 mod tests;
 mod hasher;
 

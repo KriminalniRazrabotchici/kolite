@@ -2,16 +2,34 @@ mod users;
 mod db_operations;
 mod errors;
 mod auth;
+mod state;
 
-// TODO complete a registration
-fn main() {
-    let mut data = vec![1, 2, 3];
-    let mut x = &data[0];
+use actix_web::{web, App, HttpRequest, HttpServer};
+use actix_web::middleware::Logger;
+use state::AppState;
+use users::api::routes::users_scope;
 
-    println!("{}", x);
-    data.push(3); 
-    x = &data[0];
-    println!("{}", x);
 
-    println!("Hello, world!");
+#[actix_web::main]
+async fn main() -> std::io::Result<()>{
+    let app_state = web::Data::new(AppState::init().await);
+    HttpServer::new(move || {
+        App::new()
+            .wrap(Logger::default())
+            .app_data(app_state.clone())
+            .service(
+                web::resource("/")
+                    .route(web::get().to(say_hello))
+            )
+            .service(web::scope("/user").configure(users_scope))
+            
+    })
+    .workers(4)
+    .bind(("localhost", 8000))?
+    .run()
+    .await
+}
+
+async fn say_hello(_req: HttpRequest) -> String {
+    "You got all my love <3".to_string()
 }
