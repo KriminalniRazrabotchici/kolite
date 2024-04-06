@@ -31,9 +31,9 @@ impl Authenticator {
     }
 
     pub fn issue_token(&self, user: &User) -> Result<AuthenticationDetails, JWTError>{
-        let claims = Claims::new(user);
+        let mut claims = Claims::new(user);
 
-        let refresh_token = create_refresh_token(&claims)?;
+        let refresh_token = create_refresh_token(&mut claims)?;
 
         let jwt = self.create_jwt(&claims)?;
 
@@ -51,12 +51,12 @@ impl Authenticator {
         let decoding_key = DecodingKey::from_base64_secret(&self.secret)?;
         let jwt_result = decode::<Claims>(&token, &decoding_key, &self.default_validation);
 
-        let token_data = match jwt_result {
+        let mut token_data = match jwt_result {
             Ok(token) => token,
             Err(e) => return Err(JWTError::NativeError(e)),
         };   
         
-        let check_token = create_refresh_token(&token_data.claims)?;
+        let check_token = create_refresh_token(&mut token_data.claims)?;
 
         if check_token == refresh_token {
             let uuid = &token_data.claims.uuid;
@@ -79,11 +79,15 @@ impl Authenticator {
         let decoding_key = DecodingKey::from_base64_secret(&self.secret).unwrap();
         let jwt_result = decode::<Claims>(&token, &decoding_key, &self.default_validation);
 
-        let token_data = if let Ok(data) = jwt_result {
+        let token_data = if let Ok(data) = jwt_result{
             data
         } else {
             return false;
         };
+
+        if !token_data.claims.is_active {
+            return false;
+        }
 
         let uuid = &token_data.claims.uuid;
  

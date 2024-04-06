@@ -1,7 +1,7 @@
 use super::{claims::Claims, errors::JWTError};
 use argon2::Argon2;
 
-pub(super) fn create_refresh_token(claims: &Claims) -> Result<String, JWTError> {
+pub(super) fn create_refresh_token(claims: &mut Claims) -> Result<String, JWTError> {
     let iat = claims.iat.unix_timestamp();
     let exp = claims.iat.unix_timestamp();
     let uuid: &str = &claims.uuid;
@@ -21,5 +21,6 @@ pub(super) fn create_refresh_token(claims: &Claims) -> Result<String, JWTError> 
     hasher.hash_password_into(&ref_token_raw, &salt, &mut refresh_token)
         .map_err(|e| JWTError::custom(&e.to_string()))?;
 
+    claims.deactivate();
     Ok(hex::encode(refresh_token))
 }

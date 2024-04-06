@@ -5,4 +5,4 @@ mod refresh;
 mod errors;
 
 pub use authenticator::Authenticator;
-
+pub use authenticator::AuthenticationDetails;

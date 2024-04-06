@@ -12,7 +12,8 @@ pub struct Claims {
 
     #[serde(with = "claims_serde")]
     pub(super) exp: OffsetDateTime,
-    pub(super) email: String
+    pub(super) email: String,
+    pub(super) is_active: bool
 }
 
 type TokenTime = [OffsetDateTime; 2];
@@ -28,7 +29,8 @@ impl Claims {
             uuid: String::from(uuid),
             iat,
             exp,
-            email: String::from(email)
+            email: String::from(email),
+            is_active: true
         }
     }
 
@@ -37,7 +39,8 @@ impl Claims {
             uuid: String::from(uuid),
             iat,
             exp,
-            email: String::from(email)
+            email: String::from(email),
+            is_active: true
         }
     }
 
@@ -57,6 +60,10 @@ impl Claims {
 
         [iat, exp]
     } 
+
+    pub fn deactivate(&mut self) {
+        self.is_active = false;
+    }
 }
 
 mod claims_serde {
