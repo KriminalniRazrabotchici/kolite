@@ -53,3 +53,8 @@ impl SuccessfulLoginResponse {
         }
     }
 }
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct Refresh {
+    pub(super) refresh_token: String
+}

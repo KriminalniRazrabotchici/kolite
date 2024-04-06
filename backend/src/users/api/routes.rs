@@ -7,7 +7,7 @@ use mongodb::bson::doc;
 use crate::auth::Authenticator; 
 
 use crate::{state::AppState, users::User};
-use super::schemas::{CreateUser, ErrorResponse, LoginUserData, SuccessfulLoginResponse};
+use super::schemas::{CreateUser, ErrorResponse, LoginUserData, Refresh, SuccessfulLoginResponse};
 
 
 pub fn users_scope(cfg: &mut web::ServiceConfig) {
@@ -21,6 +21,12 @@ pub fn users_scope(cfg: &mut web::ServiceConfig) {
     cfg.service(
         web::resource("/login")
             .route(web::post().to(login_user))
+    );
+
+    // Refresh a token
+    cfg.service(
+        web::resource("/refresh")
+            .route(web::post().to(refresh_token))
     );
 }
 
@@ -77,4 +83,20 @@ async fn login_user(user_in: web::Json<LoginUserData>, app_state: web::Data<AppS
     };
 
     HttpResponse::Ok().json(SuccessfulLoginResponse::new("Successful login, brother!", authentication_details))
+}
+
+
+async fn refresh_token(ref_token: web::Json<Refresh>, app_state: web::Data<AppState>) -> impl Responder {
+    let secret = env::var("SECRET").unwrap();
+    let authenticator = Authenticator::new(Algorithm::HS256, secret);
+
+    let cruder = app_state.get_cruder();
+
+    let refresh_token = ref_token.into_inner().refresh_token;
+    let auth_details = match authenticator.refresh(refresh_token, cruder).await {
+        Ok(auth) => auth,
+        Err(e) => return HttpResponse::InternalServerError().body(format!("Internal server error: {}", e.to_string()))
+    };
+
+    HttpResponse::Ok().json(SuccessfulLoginResponse::new("Token refreshed", auth_details))
 }
