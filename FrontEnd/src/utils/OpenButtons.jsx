@@ -35,8 +35,9 @@ import {
   hideWheel,
 } from '../slices/SearchButtonsSlice';
 import { useQuery } from '@tanstack/react-query';
-import { getCars } from '../services/getCars';
+import { getBrands, getCoupes, getModels } from '../services/cars';
 import Loader from '../ui/Loader';
+import { useState } from 'react';
 
 const Button = styled.button`
   display: flex;
@@ -87,7 +88,7 @@ const Container = styled.div`
 
   display: flex;
   flex-wrap: wrap;
-  gap: 2.4rem;
+  column-gap: 2.4rem;
 
   overflow: scroll;
 
@@ -98,6 +99,8 @@ const Container = styled.div`
 
 function OpenButtons() {
   const isOpenSearchModal = useSelector((state) => state.modal.isOpenSearch);
+
+  const [chooseBrand, setChooseBrand] = useState('');
 
   const {
     isCoupe,
@@ -135,34 +138,77 @@ function OpenButtons() {
     dispatch(hideWheel());
   }
 
+  function handleBrand(brand) {
+    setChooseBrand(brand.name);
+    handleCloseButtons();
+  }
+
   const {
     isLoading,
-    data: cars,
+    data: brands,
     error,
   } = useQuery({
     queryKey: ['brands'],
-    queryFn: getCars,
+    queryFn: getBrands,
   });
 
-  if (isLoading) {
+  const {
+    isLoading: isLoading2,
+    data: coupes,
+    error: error2,
+  } = useQuery({
+    queryKey: ['coupes'],
+    queryFn: getCoupes,
+  });
+
+  const {
+    isLoading: isLoading3,
+    data: models,
+    error: error3,
+  } = useQuery({
+    queryKey: ['models'],
+    queryFn: getModels,
+  });
+
+  console.log(models?.[chooseBrand]);
+
+  if (isLoading || isLoading2 || isLoading3) {
     return <Loader />;
   }
 
-  console.log(cars);
+  // console.log(brands);
 
-  const sortedCars = cars.sort((a, b) => a.name.localeCompare(b.name));
+  const sortedBrands = brands.sort((a, b) => a.name.localeCompare(b.name));
 
   return (
     <div>
       {isOpenSearchModal && (
         <Modal onClose={handleCloseButtons}>
           <Container>
+            {isCoupe &&
+              coupes.map((coupe) => (
+                <Button onClick={() => console.log('works')} key={coupe.name}>
+                  {coupe.name}
+                </Button>
+              ))}
+
             {isBrand &&
-              sortedCars.map((brand) => (
-                <Button onClick={() => console.log('works')} key={brand.name}>
+              sortedBrands.map((brand) => (
+                <Button onClick={() => handleBrand(brand)} key={brand.name}>
                   {brand.name}
                 </Button>
               ))}
+
+            {console.log(isModel)}
+
+            {isModel && chooseBrand !== ''
+              ? models?.[chooseBrand].map((el) => (
+                  <Button onClick={() => console.log('works')} key={el.model}>
+                    {el.model}
+                  </Button>
+                ))
+              : // sortedBrands.map((model) => model.Audi)
+                'Select brand first'}
           </Container>
         </Modal>
       )}
