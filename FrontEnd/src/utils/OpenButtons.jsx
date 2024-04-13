@@ -35,7 +35,18 @@ import {
   hideWheel,
 } from '../slices/SearchButtonsSlice';
 import { useQuery } from '@tanstack/react-query';
-import { getBrands, getCoupes, getModels } from '../services/cars';
+import {
+  getBrands,
+  getCities,
+  getColors,
+  getCoupes,
+  getDoors,
+  getExtras,
+  getFuel,
+  getModels,
+  getTransmission,
+  getWheel,
+} from '../services/cars';
 import Loader from '../ui/Loader';
 import { useState } from 'react';
 
@@ -170,9 +181,83 @@ function OpenButtons() {
     queryFn: getModels,
   });
 
-  console.log(models?.[chooseBrand]);
+  const {
+    isLoading: isLoading4,
+    data: fuel,
+    error: error4,
+  } = useQuery({
+    queryKey: ['fuel'],
+    queryFn: getFuel,
+  });
 
-  if (isLoading || isLoading2 || isLoading3) {
+  const {
+    isLoading: isLoading5,
+    data: transmission,
+    error: error5,
+  } = useQuery({
+    queryKey: ['transmission'],
+    queryFn: getTransmission,
+  });
+
+  const {
+    isLoading: isLoading6,
+    data: cities,
+    error: error6,
+  } = useQuery({
+    queryKey: ['cities'],
+    queryFn: getCities,
+  });
+
+  const {
+    isLoading: isLoading7,
+    data: colors,
+    error: error7,
+  } = useQuery({
+    queryKey: ['colors'],
+    queryFn: getColors,
+  });
+
+  const {
+    isLoading: isLoading8,
+    data: doors,
+    error: error8,
+  } = useQuery({
+    queryKey: ['doors'],
+    queryFn: getDoors,
+  });
+
+  const {
+    isLoading: isLoading9,
+    data: extras,
+    error: error9,
+  } = useQuery({
+    queryKey: ['extras'],
+    queryFn: getExtras,
+  });
+
+  const {
+    isLoading: isLoading10,
+    data: wheels,
+    error: error10,
+  } = useQuery({
+    queryKey: ['wheels'],
+    queryFn: getWheel,
+  });
+
+  // console.log(models?.[chooseBrand]);
+
+  if (
+    isLoading ||
+    isLoading2 ||
+    isLoading3 ||
+    isLoading4 ||
+    isLoading5 ||
+    isLoading6 ||
+    isLoading7 ||
+    isLoading8 ||
+    isLoading9 ||
+    isLoading10
+  ) {
     return <Loader />;
   }
 
@@ -201,14 +286,64 @@ function OpenButtons() {
 
             {console.log(isModel)}
 
-            {isModel && chooseBrand !== ''
-              ? models?.[chooseBrand].map((el) => (
-                  <Button onClick={() => console.log('works')} key={el.model}>
-                    {el.model}
-                  </Button>
-                ))
-              : // sortedBrands.map((model) => model.Audi)
-                'Select brand first'}
+            {isModel &&
+              chooseBrand !== '' &&
+              models?.[chooseBrand].map((el) => (
+                <Button onClick={() => console.log('works')} key={el.model}>
+                  {el.model}
+                </Button>
+              ))}
+
+            {isFuel &&
+              fuel.map((fuel) => (
+                <Button onClick={() => console.log('works')} key={fuel.type}>
+                  {fuel.type}
+                </Button>
+              ))}
+
+            {isTransmission &&
+              transmission.map((transmission) => (
+                <Button
+                  onClick={() => console.log('works')}
+                  key={transmission.type}>
+                  {transmission.type}
+                </Button>
+              ))}
+
+            {isCity &&
+              cities.map((city) => (
+                <Button onClick={() => console.log('works')} key={city.name}>
+                  {city.name}
+                </Button>
+              ))}
+
+            {isColor &&
+              colors.map((color) => (
+                <Button onClick={() => console.log('works')} key={color.type}>
+                  {color.type}
+                </Button>
+              ))}
+
+            {isDoors &&
+              doors.map((door) => (
+                <Button onClick={() => console.log('works')} key={door.number}>
+                  {door.number}
+                </Button>
+              ))}
+
+            {isExtras &&
+              extras.map((extra) => (
+                <Button onClick={() => console.log('works')} key={extra.type}>
+                  {extra.type}
+                </Button>
+              ))}
+
+            {isWheel &&
+              wheels.map((wheel) => (
+                <Button onClick={() => console.log('works')} key={wheel.side}>
+                  {wheel.side}
+                </Button>
+              ))}
           </Container>
         </Modal>
       )}
