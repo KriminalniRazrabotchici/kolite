@@ -10,6 +10,7 @@ import OpenAdd from '../features/cars/OpenAdd';
 import useOpenModal from '../hooks/useOpenModal';
 
 import OpenModal from '../utils/OpenModal';
+import Sort from './Sort';
 
 const Logo = styled.div``;
 
@@ -44,9 +45,7 @@ function NavBar() {
           <Button>
             <BiHeart />
           </Button>
-          <Button>
-            <BiSortAlt2 />
-          </Button>
+          <Sort />
         </ContainerRight>
       </Nav>
     </>

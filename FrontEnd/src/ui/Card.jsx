@@ -1,5 +1,8 @@
 import styled from 'styled-components';
 
+import { IoMdHeart, IoMdHeartEmpty } from 'react-icons/io';
+import { useState } from 'react';
+
 const StyledCard = styled.div`
   /* background-color: blue; */
 
@@ -19,6 +22,25 @@ const StyledCard = styled.div`
   &:hover {
     box-shadow: var(--shadow-lg);
   }
+`;
+
+const Favourite = styled.button`
+  /* background-color: red; */
+  border: none;
+  background-color: transparent;
+
+  /* position: absolute;
+
+  top: 0;
+  right: 0; */
+
+  & svg {
+    fill: var(--color-red-500);
+    width: 3rem;
+    height: 3rem;
+  }
+
+  /* transform: translate(50%, -30%); */
 `;
 
 const ImgBox = styled.div`
@@ -62,6 +84,11 @@ const P = styled.p`
 `;
 
 const Heading = styled.h2`
+  /* position: relative; */
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   margin: 1.2rem 0;
 
   padding-bottom: 0.8rem;
@@ -84,6 +111,8 @@ const TextBox = styled.div`
 `;
 
 function Card({ car }) {
+  const [isFavourite, setIsFavourite] = useState(false);
+
   return (
     <StyledCard onClick={() => console.log('Clicked')}>
       <ImgBox>
@@ -94,6 +123,9 @@ function Card({ car }) {
       </Price>
       <Heading>
         {car.brand} {car.model}
+        <Favourite onClick={() => setIsFavourite((fav) => !fav)}>
+          {isFavourite ? <IoMdHeart /> : <IoMdHeartEmpty />}
+        </Favourite>
       </Heading>
       <TextBox>
         <HeadingMini>

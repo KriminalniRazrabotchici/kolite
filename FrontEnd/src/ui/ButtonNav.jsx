@@ -19,6 +19,16 @@ export const Button = styled.button`
   }
 `;
 
+export const SortButton = styled(Button)`
+  transition: all 0.5s;
+
+  &:hover,
+  &:active {
+    color: var(--color-red-500);
+    transform: translateX(2rem);
+  }
+`;
+
 export const ButtonLink = styled.button`
   border: none;
   background: transparent;

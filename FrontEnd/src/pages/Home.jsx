@@ -2,6 +2,7 @@ import { HomePage } from '../ui/HomePage';
 import Card from '../ui/Card';
 import SearchBy from '../ui/SearchBy';
 import { useEffect } from 'react';
+import Loader from '../ui/Loader';
 
 const cars = [
   {
@@ -111,27 +112,7 @@ const cars = [
   },
 ];
 
-// const API_KEY = '	047dbefb-ec74-4648-baeb-bfd4d084f79d';
-
 function Home() {
-  // useEffect(function () {
-  //   async function fetchData() {
-  //     // const res = await fetch(
-  //     //   `https://mc-api.marketcheck.com/v2/search/car/active?api_key=${API_KEY}&year=2015&make=ford&include_relevant_links=true`
-  //     // );
-
-  //     const res = await fetch(
-  //       `https://mc-api.marketcheck.com/v2/listing/car/WB533CF04RCR56196-185b4c31-5cb6?api_key=${API_KEY}`
-  //     );
-
-  //     const data = await res.json();
-
-  //     console.log(data);
-  //   }
-
-  //   fetchData();
-  // }, []);
-
   return (
     <>
       <SearchBy />
@@ -140,6 +121,7 @@ function Home() {
           <Card car={car} key={car.id} />
         ))}
       </HomePage>
+      {/* <Loader /> */}
     </>
   );
 }
