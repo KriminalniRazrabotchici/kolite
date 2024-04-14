@@ -12,7 +12,7 @@ const SortDiv = styled.div`
   width: 20rem;
 
   position: fixed;
-  top: 8%;
+  top: 7%;
   right: 0;
 
   background-color: var(--black);

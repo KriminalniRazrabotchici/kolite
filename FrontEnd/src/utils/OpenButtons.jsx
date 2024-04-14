@@ -2,6 +2,8 @@ import styled from 'styled-components';
 
 import { useDispatch, useSelector } from 'react-redux';
 
+import ReactSlider from 'react-slider';
+
 import Modal from '../ui/Modal';
 
 import { closeSearch } from '../slices/ModalSlice';
@@ -108,10 +110,59 @@ const Container = styled.div`
   }
 `;
 
+const SliderContainer = styled.div`
+  width: 55rem;
+  height: 10rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const Slider = styled(ReactSlider)`
+  width: 50rem;
+  color: var(--black);
+
+  .example-track {
+    top: 0.7rem;
+    background-color: var(--color-red-500);
+    height: 0.5rem;
+    border-radius: 4px;
+  }
+
+  .example-thumb {
+    font-size: 1.2rem;
+    height: 2rem;
+    width: 2rem;
+    background-color: var(--color-red-500);
+    border-radius: 50%;
+    cursor: grab;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--black);
+  }
+
+  .example-thumb span {
+    width: 10rem;
+    padding: 0.2rem 0.8rem;
+    color: var(--color-red-500);
+    border: 1px solid var(--color-red-500);
+    transform: translateY(100%);
+  }
+`;
+
 function OpenButtons() {
   const isOpenSearchModal = useSelector((state) => state.modal.isOpenSearch);
 
   const [chooseBrand, setChooseBrand] = useState('');
+
+  const [price, setPrice] = useState([0, 100000]);
+  const [year, setYear] = useState([1970, 2024]);
+  const [hp, setHP] = useState([0, 500]);
+
+  const getStep = (value) => {
+    return value[0] > 25000 || value[1] > 25000 ? 5000 : 1000;
+  };
 
   const {
     isCoupe,
@@ -153,6 +204,18 @@ function OpenButtons() {
     setChooseBrand(brand.name);
     handleCloseButtons();
   }
+
+  const handleChangePrice = (value) => {
+    setPrice(value);
+  };
+
+  const handleChangeYear = (value) => {
+    setYear(value);
+  };
+
+  const handleChangeHP = (value) => {
+    setHP(value);
+  };
 
   const {
     isLoading,
@@ -344,6 +407,65 @@ function OpenButtons() {
                   {wheel.side}
                 </Button>
               ))}
+
+            {isPrice && (
+              <SliderContainer>
+                <Slider
+                  className='horizontal-slider'
+                  thumbClassName='example-thumb'
+                  trackClassName='example-track'
+                  defaultValue={price}
+                  max={100000}
+                  min={0}
+                  step={getStep(price)}
+                  // value={price}
+                  onChange={handleChangePrice}
+                  renderThumb={(props, state) => (
+                    <div {...props}>
+                      <span>{state.valueNow}</span>
+                    </div>
+                  )}
+                />
+              </SliderContainer>
+            )}
+            {isYear && (
+              <SliderContainer>
+                <Slider
+                  className='horizontal-slider'
+                  thumbClassName='example-thumb'
+                  trackClassName='example-track'
+                  defaultValue={year}
+                  max={2024}
+                  min={1970}
+                  // step={1}
+                  onChange={handleChangeYear}
+                  renderThumb={(props, state) => (
+                    <div {...props}>
+                      <span>{state.valueNow}</span>
+                    </div>
+                  )}
+                />
+              </SliderContainer>
+            )}
+            {isHP && (
+              <SliderContainer>
+                <Slider
+                  className='horizontal-slider'
+                  thumbClassName='example-thumb'
+                  trackClassName='example-track'
+                  defaultValue={hp}
+                  max={500}
+                  min={0}
+                  step={25}
+                  onChange={handleChangeHP}
+                  renderThumb={(props, state) => (
+                    <div {...props}>
+                      <span>{state.valueNow}</span>
+                    </div>
+                  )}
+                />
+              </SliderContainer>
+            )}
           </Container>
         </Modal>
       )}
