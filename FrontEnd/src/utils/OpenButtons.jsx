@@ -129,6 +129,10 @@ const Slider = styled(ReactSlider)`
     border-radius: 4px;
   }
 
+  .example-track-02 {
+    background-color: var(--black);
+  }
+
   .example-thumb {
     font-size: 1.2rem;
     height: 2rem;
