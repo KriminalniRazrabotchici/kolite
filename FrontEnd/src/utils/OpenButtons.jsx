@@ -51,18 +51,24 @@ import {
 } from '../services/cars';
 import Loader from '../ui/Loader';
 import { useState } from 'react';
+import {
+  respondToLandscapeTablets,
+  respondToMobile,
+  respondToSmallLaptop,
+} from '../styles/mediaQueries';
 
 const Button = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
 
-  width: 13rem;
+  width: 14rem;
   height: 3.5rem;
 
-  font-size: 1.6rem;
+  font-size: 1.8rem;
 
   background-color: transparent;
+  /* background-color: black; */
   color: var(--color-red-500);
   /* word-wrap: break-word; */
   border: none;
@@ -93,33 +99,72 @@ const Button = styled.button`
     color: var(--black);
     box-shadow: none;
   }
+
+  ${respondToSmallLaptop(`
+  width: 13rem;
+  height: 3.5rem;
+  font-size: 1.6rem;
+  `)}
+
+  ${respondToLandscapeTablets(`
+  width: 12rem;
+  height: 3.5rem;
+  font-size: 1.4rem;
+  `)}
+
+  ${respondToMobile(`
+  width: 15rem;
+  height: 4rem;
+  font-size: 1.5rem;
+  `)}
 `;
 
 const Container = styled.div`
-  /* width: 20rem; */
+  width: 40vw;
   height: 80vh;
 
-  display: flex;
+  /* display: flex;
+  align-items: start;
+  justify-content: center;
   flex-wrap: wrap;
-  column-gap: 2.4rem;
+  gap: 1.2rem; */
+
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(15, 1fr);
+
+  align-items: center;
+  justify-items: center;
 
   overflow: scroll;
 
   &::-webkit-scrollbar {
     display: none;
   }
+
+  ${respondToSmallLaptop(`grid-template-columns: repeat(3, 1fr);`)}
+  ${respondToLandscapeTablets(`grid-template-columns: repeat(2, 1fr);`)}
+  ${respondToMobile(`grid-template-columns: repeat(1, 1fr);`)}
 `;
 
 const SliderContainer = styled.div`
-  width: 55rem;
+  /* background-color: black; */
+  width: 60rem;
   height: 10rem;
   display: flex;
   justify-content: center;
   align-items: center;
+
+  ${respondToSmallLaptop(`width: 40rem;`)}
+  ${respondToLandscapeTablets(`width: 30rem;`)}
+  ${respondToMobile(`
+  margin-left: -0.7rem;
+  width: 15rem;
+  `)}
 `;
 
 const Slider = styled(ReactSlider)`
-  width: 50rem;
+  width: 90%;
   color: var(--black);
 
   .example-track {
@@ -147,12 +192,21 @@ const Slider = styled(ReactSlider)`
   }
 
   .example-thumb span {
+    margin-top: 1.2rem;
     width: 10rem;
     padding: 0.2rem 0.8rem;
     color: var(--color-red-500);
     border: 1px solid var(--color-red-500);
     transform: translateY(100%);
   }
+
+  ${respondToMobile(`
+  width: 80%;
+
+  .example-thumb span {
+    font-size: 1rem;
+  }
+  `)}
 `;
 
 function OpenButtons() {
