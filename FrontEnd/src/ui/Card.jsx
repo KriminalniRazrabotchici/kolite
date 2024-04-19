@@ -24,7 +24,7 @@ const StyledCard = styled.div`
 
   ${respondToMobile(`
     width: 100%;
-    height: 25vh;
+    height: 20vh;
     
     display: flex;
     gap: 1.2rem;

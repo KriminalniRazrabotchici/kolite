@@ -32,5 +32,7 @@ export const HomePage = styled.div`
   ${respondToMobile(`
   grid-template-columns: 1fr;
   row-gap: 3.6rem;
+
+  margin: 0;
   `)}
 `;

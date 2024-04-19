@@ -51,7 +51,6 @@ export const Button = styled.button`
   width: 11rem;
   height: 3rem;
 
-  font-size: 1.4rem;
   `)}
 
   ${respondToMobile(`

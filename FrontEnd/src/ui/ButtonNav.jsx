@@ -1,4 +1,8 @@
 import styled from 'styled-components';
+import {
+  respondToLandscapeTablets,
+  respondToMobile,
+} from '../styles/mediaQueries';
 
 export const Button = styled.button`
   color: var(--white);
@@ -68,13 +72,15 @@ export const ButtonLink = styled.button`
 
     transform: translateY(-0.5rem);
   }
+
+  ${respondToLandscapeTablets(`font-size: 1.6rem;`)}
 `;
 
 export const ButtonRedirect = styled(ButtonLink)`
   height: 2rem;
 
   text-transform: lowercase;
-  font-size: 1.4rem;
+  font-size: 1.6rem;
 
   color: var(--color-red-500);
 
@@ -96,4 +102,7 @@ export const ButtonRedirect = styled(ButtonLink)`
   &:active {
     color: var(--black);
   }
+
+  ${respondToLandscapeTablets(`font-size: 1.4rem;`)}
+  ${respondToMobile(`font-size: 1.2rem;`)}
 `;

@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
+import { respondToLandscapeTablets } from '../styles/mediaQueries';
 
 export const StyledNavLink = styled(NavLink)`
   text-decoration: none;
@@ -43,4 +44,6 @@ export const StyledNavLink = styled(NavLink)`
 
     transform: translateY(-0.5rem);
   }
+
+  ${respondToLandscapeTablets(`font-size: 1.6rem;`)}
 `;
