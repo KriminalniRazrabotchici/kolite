@@ -3,14 +3,13 @@ import styled from 'styled-components';
 export const Nav = styled.nav`
   background-color: var(--black);
   color: var(--white);
+  max-width: 100%;
 
-  padding: 0 2.4rem;
+  height: ${(props) => (props.show ? '100vh' : '7rem')};
+  padding: 0;
 
-  font-size: 2rem;
-
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  height: 6rem;
+  @media (min-width: 48.1em) {
+    height: 7rem;
+    padding: 0 2.4rem;
+  }
 `;

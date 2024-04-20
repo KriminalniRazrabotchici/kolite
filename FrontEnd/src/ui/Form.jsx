@@ -1,4 +1,9 @@
 import styled from 'styled-components';
+import {
+  respondToLandscapeTablets,
+  respondToMobile,
+  respondToSmallLaptop,
+} from '../styles/mediaQueries';
 
 export const Form = styled.form`
   display: flex;
@@ -6,10 +11,12 @@ export const Form = styled.form`
   justify-content: center;
   gap: 3.2rem;
 
-  height: ${(props) => (props.register ? '80vh' : '50vh')};
+  height: ${(props) => (props.register ? '90vh' : '50vh')};
   width: 50vh;
 
-  /* background-color: red; */
+  ${respondToSmallLaptop(`width: 45vh;`)}
+  ${respondToLandscapeTablets(`width: 40vh;`)}
+  ${respondToMobile(`width: 30vh;`)}
 `;
 
 export const ContactsForm = styled(Form)`
@@ -18,6 +25,10 @@ export const ContactsForm = styled(Form)`
 
   height: 100vh;
   width: 50%;
+
+  ${respondToSmallLaptop(`width: 60%;`)}
+  ${respondToLandscapeTablets(`width: 75%;`)}
+  ${respondToMobile(`width: 100%;`)}
 `;
 
 export const Box = styled.div`
@@ -28,6 +39,11 @@ export const Box = styled.div`
 
   display: flex;
   flex-direction: column;
+
+  ${respondToSmallLaptop(`font-size: 1.8rem;`)}
+
+  ${respondToLandscapeTablets(`font-size: 1.6rem;`)}
+  ${respondToMobile(`font-size: 1.4rem;`)}
 `;
 
 export const Label = styled.label`
@@ -48,6 +64,17 @@ export const Input = styled.input`
     outline: none;
     border-bottom: 1px solid var(--color-red-700);
   }
+
+  &::placeholder {
+    font-size: 1.8rem;
+  }
+
+  ${respondToLandscapeTablets(`&::placeholder {
+    font-size: 1.6rem;
+  }`)}
+  ${respondToMobile(`&::placeholder {
+    font-size: 1.4rem;
+  }`)}
 `;
 
 export const TextArea = styled.textarea`
@@ -71,6 +98,7 @@ export const TextArea = styled.textarea`
 `;
 
 export const Btn = styled.button`
+  font-size: 1.8rem;
   background-color: var(--color-red-500);
   outline: none;
   border: 0;
@@ -92,4 +120,9 @@ export const Btn = styled.button`
     color: var(--color-grey-300);
     background-color: var(--color-grey-400);
   }
+
+  ${respondToSmallLaptop(`font-size: 1.6rem;`)}
+  ${respondToLandscapeTablets(`font-size: 1.4rem;`)}
+  ${respondToMobile(`font-size: 1.2rem;
+  padding: 0.8rem 1.6rem;`)}
 `;
