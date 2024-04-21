@@ -1,7 +1,7 @@
-use mongodb::{bson::{doc, Document}, options::{DeleteOptions, FindOneOptions, FindOptions, InsertManyOptions, InsertOneOptions, UpdateOptions}, Collection};
+use mongodb::{bson::{self, doc, Document}, options::{DeleteOptions, FindOneOptions, FindOptions, InsertManyOptions, InsertOneOptions, UpdateOptions}, Collection};
 use serde::{de::DeserializeOwned,  Serialize};
 
-use crate::errors::DatabaseError;
+use crate::{auth::DatabaseAuth, errors::DatabaseError};
 
 pub struct CollectionHandler<T> 
 {
@@ -126,6 +126,35 @@ where T: Serialize + DeserializeOwned
             Ok(_) => Ok(()),
             Err(e) => Err(DatabaseError::CouldNotSaveError(format!("The models, couldn't be deleted: {}", e.to_string()))),
         }
+    }
+
+    pub async fn aggregate<I>(&self, pipeline: I) -> Result<Vec<T>, DatabaseError>
+    where
+        I: IntoIterator<Item = Document>
+    {
+        let pipeline_result = self.collection.aggregate(pipeline, None).await;
+        
+        let mut output: Vec<T> = Vec::new();
+        match pipeline_result {
+            Ok(mut cursor) => {
+                while cursor.advance().await
+                    .map_err(|err| DatabaseError::CursorError(err.to_string()))? 
+                {
+                    let document = cursor.deserialize_current()
+                        .map_err(|err| DatabaseError::CursorError(err.to_string()))?; 
+
+                    let model: T = bson::from_document(document)
+                        .map_err(|err| DatabaseError::CursorError(err.to_string()))?;
+
+                    output.push(model);
+                }           
+            }
+            Err(err)  => {
+                return Err(DatabaseError::CursorError(err.to_string()));
+            }
+        };
+
+        Ok(output)
     }
 
 }
