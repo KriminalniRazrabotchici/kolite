@@ -28,7 +28,7 @@ async fn main() -> std::io::Result<()>{
             
     })
     .workers(4)
-    .bind(("localhost", 8000))?
+    .bind(("0.0.0.0", 8000))?
     .run()
     .await
 }
