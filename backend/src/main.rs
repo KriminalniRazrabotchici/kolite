@@ -3,9 +3,11 @@ mod db_operations;
 mod errors;
 mod auth;
 mod state;
+mod cars;
 
 use actix_web::{web, App, HttpRequest, HttpServer};
 use actix_web::middleware::Logger;
+use cars::api::routes::cars_scope;
 use state::AppState;
 use users::api::routes::users_scope;
 
@@ -22,6 +24,7 @@ async fn main() -> std::io::Result<()>{
                     .route(web::get().to(say_hello))
             )
             .service(web::scope("/user").configure(users_scope))
+            .service(web::scope("/cars").configure(cars_scope))
             
     })
     .workers(4)
