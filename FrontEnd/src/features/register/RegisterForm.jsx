@@ -5,6 +5,8 @@ import { ButtonRedirect } from '../../ui/ButtonNav';
 import { useDispatch } from 'react-redux';
 import { hideRegister, showLogin } from '../../slices/LoginRegisterSlice';
 import { open } from '../../slices/ModalSlice';
+import { register } from '../../services/apiAuth';
+import toast from 'react-hot-toast';
 
 function Register({ onCloseModal }) {
   const [name, setName] = useState('');
@@ -18,7 +20,23 @@ function Register({ onCloseModal }) {
   function handleSubmit(e) {
     e.preventDefault();
 
-    onCloseModal();
+    if (!name || !email || !number || !password) {
+      toast.error('One or more fields are missing!');
+      return;
+    } else {
+      if (password !== repass) {
+        toast.error('Passwords not matching!');
+        return;
+      }
+      onCloseModal();
+      const res = register({ name, email, number, password });
+
+      if (res.ok) {
+        toast.success('You have successfully registered!');
+      } else {
+        toast.error('Failed');
+      }
+    }
   }
 
   return (
@@ -66,7 +84,7 @@ function Register({ onCloseModal }) {
       <Box>
         <Label>Repeat password</Label>
         <Input
-          type='repass'
+          type='password'
           name='repass'
           value={repass}
           onChange={(e) => setRePass(e.target.value)}

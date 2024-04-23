@@ -48,7 +48,7 @@ import {
   getModels,
   getTransmission,
   getWheel,
-} from '../services/cars';
+} from '../services/apiCars';
 import Loader from '../ui/Loader';
 import { useState } from 'react';
 import {

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { toast } from 'react-hot-toast';
 
 import { Form, Box, Btn, Input, Label } from '../../ui/Form';
 import { RedirectContainer } from '../../ui/RedirectContainer';
@@ -7,6 +8,7 @@ import { useDispatch } from 'react-redux';
 import { showRegister } from '../../slices/LoginRegisterSlice';
 import { hideLogin } from '../../slices/LoginRegisterSlice';
 import { open } from '../../slices/ModalSlice';
+import { login } from '../../services/apiAuth';
 
 function Login({ onCloseModal }) {
   const [email, setEmail] = useState('');
@@ -17,7 +19,19 @@ function Login({ onCloseModal }) {
   function handleSubmit(e) {
     e.preventDefault();
 
-    onCloseModal();
+    if (!email || !password) {
+      toast.error('Email or password missing!');
+      return;
+    } else {
+      onCloseModal();
+      const res = login({ email, password });
+
+      if (res.ok) {
+        toast.success('You have successfully logged in!');
+      } else {
+        toast.error('Failed');
+      }
+    }
   }
 
   return (
